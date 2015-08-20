@@ -94,13 +94,13 @@
     NSData *data1 = [@"hekrconfig" dataUsingEncoding:NSUTF8StringEncoding];
     NSData *data2 = [@"merci" dataUsingEncoding:NSUTF8StringEncoding];
     int j = 0;
-    for (  ;j<200;j++) {
+    for (  ;j<100;j++) {
         for (int i =0;i<self.msg.length;i++) {
             NSString *address = [NSString stringWithFormat:@"224.%d.%d.255",i,[self.msg characterAtIndex:i]];
             NSLog(@"send to address :%@ index :%d",address, j);
             [self.udpSocket sendData:data1 toHost:address port:7001 withTimeout:-1 tag:self.tag];
             self.tag++;
-            [NSThread sleepForTimeInterval:self.mtime];
+            [NSThread sleepForTimeInterval:0.005];
             if (self.finishFlag)
             {
                 break;
@@ -116,17 +116,16 @@
         
     }
     j=0;
-    while(!self.finishFlag && j<60 ){
-        [NSThread sleepForTimeInterval:0.5];
+    while(!(self.finishFlag || j < 55)){
+        NSString *fd = [NSString stringWithFormat:@"(ak \"%@\")",self.deviceToken];
+        NSData *data = [fd dataUsingEncoding:NSUTF8StringEncoding];
+        [self.udpSocket sendData:data toHost:@"255.255.255.255" port:10000 withTimeout:-1 tag:self.tag];
+        [NSThread sleepForTimeInterval:1];
         j++;
         NSLog(@"j -->%d", j);
     }
     
-    if (!self.finishFlag) {
-        !self.block?:self.block(NO);
-//         [[NSNotificationCenter defaultCenter] postNotificationName:@"ADD_NOT_FIND" object:nil];
-    }
-   
+    !self.block?:self.block(self.finishFlag);
  }
 
 - (void)stopSend
@@ -200,6 +199,7 @@ withFilterContext:(id)filterContext
     
     if (msg)
     {
+
         if (self.count == 0) {
             NSLog(@"RECV: %@", msg);
             NSString *host = nil;
@@ -209,8 +209,9 @@ withFilterContext:(id)filterContext
             NSData *data = [fd dataUsingEncoding:NSUTF8StringEncoding];
             [self.udpSocket sendData:data toHost:host port:10000 withTimeout:-1 tag:self.tag];
             self.count++;
-        }else{
-             NSLog(@"RECV: %@", msg);
+        }
+        if ([msg rangeOfString:@"deviceACK"].location != NSNotFound){
+            NSLog(@"RECV: %@", msg);
             self.count=0;
             NSLog(@"配置成功");
             self.finishFlag=YES;
