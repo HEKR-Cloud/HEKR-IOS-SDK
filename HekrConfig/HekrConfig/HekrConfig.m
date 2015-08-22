@@ -62,11 +62,17 @@ NSInteger convertSSID(NSString* ssidName){
 #pragma mark -- wifi
 -(void) hekrConfig:(NSString*)ssid password:(NSString*)password callback:(void(^)(BOOL)) block{
     self.scaner = [[ScanDevice alloc] initWithToken:self.token ssid:ssid password:password];
-    self.scaner.block = block;
+    __weak typeof(self) wself = self;
+    self.scaner.block = ^(BOOL ret){
+        typeof(self) sself = wself;
+        sself.scaner = nil;
+        !block?:block(ret);
+    };
     [self.scaner start];
 }
 -(void) cancelConfig{
     [self.scaner cancel];
+    self.scaner = nil;
 }
 #pragma mark -- softAP
 -(BOOL) isDeviceConnectedSoftAP{

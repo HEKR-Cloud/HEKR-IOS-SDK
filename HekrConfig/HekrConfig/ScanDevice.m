@@ -58,6 +58,7 @@
 -(void) cancel{
     self.block = nil;
     [self stopSend];
+    [self.udpSocket close];
 }
 
 
@@ -116,7 +117,7 @@
         
     }
     j=0;
-    while(!(self.finishFlag || j < 55)){
+    while(!self.finishFlag && j<55){
         NSString *fd = [NSString stringWithFormat:@"(ak \"%@\")",self.deviceToken];
         NSData *data = [fd dataUsingEncoding:NSUTF8StringEncoding];
         [self.udpSocket sendData:data toHost:@"255.255.255.255" port:10000 withTimeout:-1 tag:self.tag];
@@ -124,12 +125,16 @@
         j++;
         NSLog(@"j -->%d", j);
     }
-    
-    !self.block?:self.block(self.finishFlag);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        typeof(self.block) block = self.block;
+        self.block = nil;
+        !block?:block(self.finishFlag);
+    });
  }
 
 - (void)stopSend
 {
+    self.block = nil;
     self.finishFlag = YES;
 }
 
@@ -217,7 +222,10 @@ withFilterContext:(id)filterContext
             self.finishFlag=YES;
             [self.udpSocket close];
 //            [[NSNotificationCenter defaultCenter] postNotificationName:@"ADD_SUCCESS" object:nil];
-            !self.block?:self.block(YES);
+            
+            typeof(self.block) block = self.block;
+            self.block = nil;
+            !block?:block(self.finishFlag);
         }
     }
     else
