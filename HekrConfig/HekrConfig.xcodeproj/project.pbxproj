@@ -405,6 +405,11 @@
 					27F0F29A1B6F61120063CD05 = {
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = W4PNLZFL2P;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					27F0F2B21B6F61120063CD05 = {
 						CreatedOnToolsVersion = 6.4;

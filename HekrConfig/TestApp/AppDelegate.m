@@ -7,9 +7,10 @@
 //
 
 #import "AppDelegate.h"
+#import <CoreBluetooth/CoreBluetooth.h>
 
-@interface AppDelegate ()
-
+@interface AppDelegate ()<CBPeripheralManagerDelegate>
+@property (nonatomic,strong) CBPeripheralManager * mgr;
 @end
 
 @implementation AppDelegate
@@ -17,6 +18,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    self.mgr = [[CBPeripheralManager alloc] initWithDelegate:self queue:dispatch_get_main_queue()];
+    if ([CBPeripheralManager authorizationStatus] == CBPeripheralManagerAuthorizationStatusDenied) {
+        NSLog(@"error no authorization");
+    }
     return YES;
 }
 
@@ -42,4 +47,13 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+#pragma mark --delegate
+- (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral{
+//    [self.mgr addService:]
+    NSLog(@"state change: %d",peripheral.state);
+    [self.mgr startAdvertising:@{CBAdvertisementDataLocalNameKey:@"test test"}];
+}
+- (void)peripheralManagerDidStartAdvertising:(CBPeripheralManager *)peripheral error:(NSError *)error{
+    NSLog(@"StartAdvertising :%@",error);
+}
 @end
