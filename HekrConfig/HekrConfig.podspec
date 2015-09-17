@@ -90,8 +90,8 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "HekrConfig", "HekrConfig/*.{h,m}"
-  s.exclude_files = "HekrConfig/CocoaAsyncSocket"
+  s.source_files  = "HekrConfig/HekrConfig", "HekrConfig/HekrConfig/*.{h,m}"
+  s.exclude_files = "HekrConfig/HekrConfig/CocoaAsyncSocket"
 
   # s.public_header_files = "HekrConfig/HekrConfig.h"
 
