@@ -94,37 +94,33 @@
     NSString *address1 = [NSString stringWithFormat:@"224.127.%lu.255",(unsigned long)self.msg.length];
     NSData *data1 = [@"hekrconfig" dataUsingEncoding:NSUTF8StringEncoding];
     NSData *data2 = [@"merci" dataUsingEncoding:NSUTF8StringEncoding];
-    int j = 0;
-    for (  ;j<100;j++) {
+    NSData *data3 = [[NSString stringWithFormat:@"(ak \"%@\")",self.deviceToken] dataUsingEncoding:NSUTF8StringEncoding];
+    NSLog(@"start");
+    NSDate * startTime = [NSDate date];
+    while ([[NSDate date] timeIntervalSinceDate:startTime] < 60) {
         for (int i =0;i<self.msg.length;i++) {
             NSString *address = [NSString stringWithFormat:@"224.%d.%d.255",i,[self.msg characterAtIndex:i]];
-            NSLog(@"send to address :%@ index :%d",address, j);
+            //            NSLog(@"send to address :%@ index :%d",address, j);
             [self.udpSocket sendData:data1 toHost:address port:7001 withTimeout:-1 tag:self.tag];
             self.tag++;
-            [NSThread sleepForTimeInterval:0.005];
+            sleep(0.005);
             if (self.finishFlag)
             {
                 break;
             }
         }
         
-        [self.udpSocket sendData:data2 toHost:address1 port:7001 withTimeout:-1 tag:self.tag];
-        self.tag++;
+        [self.udpSocket sendData:data2 toHost:address1 port:7001 withTimeout:-1 tag:self.tag++];
+        sleep(0.005);
+        [self.udpSocket sendData:data3 toHost:@"255.255.255.255" port:10000 withTimeout:-1 tag:self.tag++];
         if (self.finishFlag)
         {
-          break;
+            break;
         }
-        
+        sleep(0.005);
     }
-    j=0;
-    while(!self.finishFlag && j<55){
-        NSString *fd = [NSString stringWithFormat:@"(ak \"%@\")",self.deviceToken];
-        NSData *data = [fd dataUsingEncoding:NSUTF8StringEncoding];
-        [self.udpSocket sendData:data toHost:@"255.255.255.255" port:10000 withTimeout:-1 tag:self.tag];
-        [NSThread sleepForTimeInterval:1];
-        j++;
-        NSLog(@"j -->%d", j);
-    }
+    NSLog(@"end");
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         typeof(self.block) block = self.block;
         self.block = nil;
