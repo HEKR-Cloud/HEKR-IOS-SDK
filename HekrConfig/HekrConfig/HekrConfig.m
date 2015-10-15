@@ -64,9 +64,11 @@ NSInteger convertSSID(NSString* ssidName){
     self.scaner = [[ScanDevice alloc] initWithToken:self.token ssid:ssid password:password];
     __weak typeof(self) wself = self;
     self.scaner.block = ^(BOOL ret){
-        typeof(self) sself = wself;
-        sself.scaner = nil;
-        !block?:block(ret);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            typeof(self) sself = wself;
+            sself.scaner = nil;
+            !block?:block(ret);
+        });
     };
     [self.scaner start];
 }

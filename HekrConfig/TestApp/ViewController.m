@@ -33,8 +33,34 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [KVNProgress showProgress:0];
     self.currentWifi.text = [self currentWifiSSID];
+    [self getToken:^(NSString * token) {
+        self.deviceToken.text = token;
+        [KVNProgress dismiss];
+    }];
+}
+-(void) getToken:(void(^)(NSString*)) block{
+    typeof(block) mainBlock = ^(NSString* t){
+      dispatch_async(dispatch_get_main_queue(), ^{
+          block(t);
+      });
+    };
     
+    NSString * url = [NSString stringWithFormat:@"http://user.hekr.me/user/guestAccount.json?ver=1.0&mobileuuid=%@",[[UIDevice currentDevice] identifierForVendor].UUIDString];
+    [[[NSURLSession sharedSession] dataTaskWithURL:[NSURL URLWithString:url] completionHandler:^(NSData * data, NSURLResponse * response, NSError *  error) {
+        id json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        if (json) {
+            NSString * csrf = [json objectForKey:@"_csrftoken_"];
+            NSString * url = [NSString stringWithFormat:@"http://user.hekr.me/token/generate.json?_csrftoken_=%@&type=DEVICE",csrf];
+            [[[NSURLSession sharedSession] dataTaskWithURL:[NSURL URLWithString:url] completionHandler:^(NSData * data, NSURLResponse * response, NSError *  error) {
+                id json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                mainBlock([json objectForKey:@"token"]);
+            }] resume];
+        }else{
+            mainBlock(nil);
+        }
+    }] resume];
 }
 
 - (void)didReceiveMemoryWarning {

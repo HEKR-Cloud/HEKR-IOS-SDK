@@ -73,6 +73,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		27A21FBA1BCF65930096753D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		27F0F26B1B6F482F0063CD05 /* libHekrConfig.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libHekrConfig.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		27F0F26E1B6F482F0063CD05 /* HekrConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HekrConfig.h; sourceTree = "<group>"; };
 		27F0F2701B6F482F0063CD05 /* HekrConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HekrConfig.m; sourceTree = "<group>"; };
@@ -539,6 +540,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				27F0F2A81B6F61120063CD05 /* Base */,
+				27A21FBA1BCF65930096753D /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

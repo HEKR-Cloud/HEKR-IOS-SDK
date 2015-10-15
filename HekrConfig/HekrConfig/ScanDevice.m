@@ -47,7 +47,7 @@
     self.msg =[NSString stringWithFormat:@"%@\x00%@\x00",self.ssid,self.pwd];
     
     NSError *error = nil;
-    if ([self.udpSocket bindToPort:10000 error:&error] && [self.udpSocket beginReceiving:&error]){
+    if ([self.udpSocket enableBroadcast:YES error:&error] &&[self.udpSocket bindToPort:10000 error:&error] && [self.udpSocket beginReceiving:&error]){
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [self  scanDevice];
         });
@@ -88,7 +88,8 @@
 
 -(void)scanDevice
 {
-//    self.udpSocket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+    //    self.udpSocket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+    
     
     self.finishFlag = NO;
     NSString *address1 = [NSString stringWithFormat:@"224.127.%lu.255",(unsigned long)self.msg.length];
@@ -98,35 +99,35 @@
     NSLog(@"start");
     NSDate * startTime = [NSDate date];
     while ([[NSDate date] timeIntervalSinceDate:startTime] < 60) {
-        for (int i =0;i<self.msg.length;i++) {
-            NSString *address = [NSString stringWithFormat:@"224.%d.%d.255",i,[self.msg characterAtIndex:i]];
-            //            NSLog(@"send to address :%@ index :%d",address, j);
-            [self.udpSocket sendData:data1 toHost:address port:7001 withTimeout:-1 tag:self.tag];
-            self.tag++;
-            sleep(0.005);
-            if (self.finishFlag)
-            {
-                break;
+        for (int i =0;i<4;i++) {
+            for (int i =0;i<self.msg.length;i++) {
+                NSString *address = [NSString stringWithFormat:@"224.%d.%d.255",i,[self.msg characterAtIndex:i]];
+                //            NSLog(@"send to address :%@ index :%d",address, j);
+                [self.udpSocket sendData:data1 toHost:address port:7001 withTimeout:-1 tag:self.tag];
+                self.tag++;
+                sleep(0.02);
+                if (self.finishFlag)
+                {
+                    break;
+                }
             }
+            
+            [self.udpSocket sendData:data2 toHost:address1 port:7001 withTimeout:-1 tag:self.tag++];
+            sleep(0.1);
         }
-        
-        [self.udpSocket sendData:data2 toHost:address1 port:7001 withTimeout:-1 tag:self.tag++];
-        sleep(0.005);
         [self.udpSocket sendData:data3 toHost:@"255.255.255.255" port:10000 withTimeout:-1 tag:self.tag++];
         if (self.finishFlag)
         {
             break;
         }
-        sleep(0.005);
+        sleep(1);
     }
     NSLog(@"end");
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        typeof(self.block) block = self.block;
-        self.block = nil;
-        !block?:block(self.finishFlag);
-    });
- }
+    [self.udpSocket close];
+    typeof(self.block) block = self.block;
+    self.block = nil;
+    !block?:block(self.finishFlag);
+}
 
 - (void)stopSend
 {
