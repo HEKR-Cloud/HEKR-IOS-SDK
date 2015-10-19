@@ -70,7 +70,7 @@
     if (self.deviceToken.text.length <= 0) {
         return [self showMsg:@"please set deviceToken"];
     }
-    if ([self currentWifiSSID].length <= 0) {
+    if ([self.currentWifi text].length <= 0) {
         return [self showMsg:@"please connect to a wifi"];
     }
     if (self.password.text.length <= 0) {
@@ -79,7 +79,7 @@
     [[HekrConfig sharedInstance] setDeviceToken:self.deviceToken.text];
     if (![[HekrConfig sharedInstance] isDeviceConnectedSoftAP]) {
         [KVNProgress showProgress:0];
-        [[HekrConfig sharedInstance] hekrConfig:[self currentWifiSSID] password:self.password.text callback:^(BOOL ret) {
+        [[HekrConfig sharedInstance] hekrConfig:self.currentWifi.text password:self.password.text callback:^(BOOL ret) {
             [KVNProgress dismiss];
             [self showMsg:ret?@"finish":@"fail"];
         }];

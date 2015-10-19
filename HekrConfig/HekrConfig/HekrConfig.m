@@ -56,6 +56,13 @@ NSInteger convertSSID(NSString* ssidName){
     });
     return __instance;
 }
+-(instancetype) init{
+    self = [super init];
+    if (self) {
+        _APPrefix = @"Hekr_";
+    }
+    return self;
+}
 -(void) setDeviceToken:(NSString*) deviceToken{
     self.token = deviceToken;
 }
@@ -78,7 +85,7 @@ NSInteger convertSSID(NSString* ssidName){
 }
 #pragma mark -- softAP
 -(BOOL) isDeviceConnectedSoftAP{
-    return [currentWifiSSID() hasPrefix:@"Hekr_"];
+    return [currentWifiSSID() hasPrefix:self.APPrefix];
 }
 -(void) softAPList:(void(^)(NSArray*)) block{
     __weak typeof(self) wself = self;

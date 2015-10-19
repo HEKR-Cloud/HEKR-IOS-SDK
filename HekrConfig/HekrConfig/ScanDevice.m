@@ -101,13 +101,13 @@
     while ([[NSDate date] timeIntervalSinceDate:startTime] < 60) {
         NSLog(@"ssid begin");
         for (int i =0;i<100;i++) {
-            NSLog(@"ssid begin-");
+//            NSLog(@"ssid begin-");
             for (int i =0;i<self.msg.length;i++) {
                 NSString *address = [NSString stringWithFormat:@"224.%d.%d.255",i,[self.msg characterAtIndex:i]];
                 //            NSLog(@"send to address :%@ index :%d",address, j);
                 [self.udpSocket sendData:data1 toHost:address port:7001 withTimeout:-1 tag:self.tag];
                 self.tag++;
-                sleep(0.01);
+                sleep(0.05);
                 if (self.finishFlag)
                 {
                     break;
@@ -115,8 +115,8 @@
             }
             
             [self.udpSocket sendData:data2 toHost:address1 port:7001 withTimeout:-1 tag:self.tag++];
-            sleep(0.01);
-            NSLog(@"ssid end-");
+            sleep(0.05);
+//            NSLog(@"ssid end-");
         }
         NSLog(@"ssid end");
         [self.udpSocket sendData:data3 toHost:@"255.255.255.255" port:10000 withTimeout:-1 tag:self.tag++];
@@ -124,7 +124,7 @@
         {
             break;
         }
-        sleep(1);
+        sleep(0.1);
     }
     NSLog(@"end");
     [self.udpSocket close];
