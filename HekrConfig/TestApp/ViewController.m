@@ -79,9 +79,10 @@
     [[HekrConfig sharedInstance] setDeviceToken:self.deviceToken.text];
     if (![[HekrConfig sharedInstance] isDeviceConnectedSoftAP]) {
         [KVNProgress showProgress:0];
+        NSDate * date = [NSDate date];
         [[HekrConfig sharedInstance] hekrConfig:self.currentWifi.text password:self.password.text callback:^(BOOL ret) {
             [KVNProgress dismiss];
-            [self showMsg:ret?@"finish":@"fail"];
+            [self showMsg:[ret?@"finish":@"fail" stringByAppendingFormat:@":%f",[[NSDate date] timeIntervalSinceDate:date]]];
         }];
     }else{
         [KVNProgress showProgress:0];
