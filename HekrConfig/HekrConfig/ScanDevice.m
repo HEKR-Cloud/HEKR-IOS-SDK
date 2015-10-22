@@ -92,7 +92,7 @@
             if((![[data objectForKey:@"addr"] isEqualToString:@"255.255.255.255"]) || [[NSDate date] timeIntervalSinceDate:date] > 1){
                 [self.udpSocket sendData:[data objectForKey:@"data"] toHost:[data objectForKey:@"addr"] port:[[data objectForKey:@"port"] intValue] withTimeout:1 tag:0];
             }
-            [NSThread sleepForTimeInterval:slp * (1 + t / 6)];
+            [NSThread sleepForTimeInterval:slp * (1 + MAX(t - 3,0.0) / 6)];
         }
     }
     [self.udpSocket close];
