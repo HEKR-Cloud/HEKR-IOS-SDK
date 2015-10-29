@@ -66,14 +66,15 @@
 }
 -(NSArray*) makeDatas:(NSString*) msg{
     NSMutableArray * arrs = [NSMutableArray array];
-
-    NSString *address1 = [NSString stringWithFormat:@"224.127.%lu.255",(unsigned long)msg.length];
+    NSData * msgData = [msg dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSString *address1 = [NSString stringWithFormat:@"224.127.%lu.255",(unsigned long)msgData.length];
     NSData *data1 = [@"hekrconfig" dataUsingEncoding:NSUTF8StringEncoding];
     NSData *data2 = [@"merci" dataUsingEncoding:NSUTF8StringEncoding];
     NSData *data3 = [[NSString stringWithFormat:@"(ak \"%@\")",self.deviceToken] dataUsingEncoding:NSUTF8StringEncoding];
     
-    for (int i =0;i<msg.length;i++) {
-        NSString *address = [NSString stringWithFormat:@"224.%d.%d.255",i,[msg characterAtIndex:i]];
+    for (int i =0;i<msgData.length;i++) {
+        NSString *address = [NSString stringWithFormat:@"224.%d.%d.255",i, (((unsigned char *)msgData.bytes)[i]) & 0xff];
         [arrs addObject:@{@"addr":address,@"port":@(7001),@"data":data1}];
     }
     [arrs addObject:@{@"addr":address1,@"port":@(7001),@"data":data2}];
