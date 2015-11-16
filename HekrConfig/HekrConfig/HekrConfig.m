@@ -56,6 +56,9 @@ NSInteger convertSSID(NSString* ssidName){
     });
     return __instance;
 }
++(NSString*) currentSSID{
+    return currentWifiSSID();
+}
 -(instancetype) init{
     self = [super init];
     if (self) {

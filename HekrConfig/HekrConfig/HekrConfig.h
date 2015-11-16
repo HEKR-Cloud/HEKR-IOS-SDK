@@ -10,6 +10,7 @@
 
 @interface HekrConfig : NSObject
 +(instancetype) sharedInstance;
++(NSString*) currentSSID;
 @property (nonatomic,copy) NSString * APPrefix;
 -(void) setDeviceToken:(NSString*) deviceToken;
 //Wi-Fi一键配置
