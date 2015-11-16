@@ -13,11 +13,11 @@
 @property (nonatomic,copy) NSString * APPrefix;
 -(void) setDeviceToken:(NSString*) deviceToken;
 //Wi-Fi一键配置
--(void) hekrConfig:(NSString*)ssid password:(NSString*)password callback:(void(^)(BOOL)) block;
+-(void) hekrConfig:(NSString*)ssid password:(NSString*)password callback:(void(^)(BOOL,NSString*)) block;
 -(void) cancelConfig;
 
 //软ap方式配置
 -(BOOL) isDeviceConnectedSoftAP;
 -(void) softAPList:(void(^)(NSArray*)) block;
--(void) softAPSetBridge:(id)AP password:(NSString*)password callback:(void (^)(BOOL))block;
+-(void) softAPSetBridge:(id)AP password:(NSString*)password callback:(void (^)(BOOL,NSString*))block;
 @end

@@ -67,14 +67,14 @@ NSInteger convertSSID(NSString* ssidName){
     self.token = deviceToken;
 }
 #pragma mark -- wifi
--(void) hekrConfig:(NSString*)ssid password:(NSString*)password callback:(void(^)(BOOL)) block{
+-(void) hekrConfig:(NSString*)ssid password:(NSString*)password callback:(void(^)(BOOL,NSString*)) block{
     self.scaner = [[ScanDevice alloc] initWithToken:self.token ssid:ssid password:password];
     __weak typeof(self) wself = self;
-    self.scaner.block = ^(BOOL ret){
+    self.scaner.block = ^(BOOL ret,NSString * tid){
         dispatch_async(dispatch_get_main_queue(), ^{
             typeof(self) sself = wself;
             sself.scaner = nil;
-            !block?:block(ret);
+            !block?:block(ret,tid);
         });
     };
     [self.scaner start];
@@ -89,7 +89,7 @@ NSInteger convertSSID(NSString* ssidName){
 }
 -(void) softAPList:(void(^)(NSArray*)) block{
     __weak typeof(self) wself = self;
-    [self setAK:self.token callback:^(BOOL ret) {
+    [self setAK:self.token callback:^(BOOL ret,NSString* tid) {
         typeof(self) sself = wself;
         if (ret) {
             [sself getAPList:block];
@@ -98,7 +98,7 @@ NSInteger convertSSID(NSString* ssidName){
         }
     }];
 }
--(void) setAK:(NSString*) token callback:(void(^)(BOOL)) block{
+-(void) setAK:(NSString*) token callback:(void(^)(BOOL,NSString*)) block{
     if ([self isDeviceConnectedSoftAP]) {
         NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://192.168.10.1/t/set_ak?ak=%@",token]]];
         [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
@@ -107,14 +107,14 @@ NSInteger convertSSID(NSString* ssidName){
                 id json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
                 if ([json isKindOfClass:[NSDictionary class]]) {
                     if([json objectForKey:@"code"] && [[json objectForKey:@"code"] integerValue] == 0){
-                        return !block?:block(YES);
+                        return !block?:block(YES,[json objectForKey:@"tid"]);
                     }
                 }
             }
-            !block?:block(NO);
+            !block?:block(NO,nil);
         }];
     }else{
-        !block?:block(NO);
+        !block?:block(NO,nil);
     }
 }
 -(void) getAPList:(void(^)(NSArray*)) block{
@@ -130,20 +130,20 @@ NSInteger convertSSID(NSString* ssidName){
         !block?:block(nil);
     }];
 }
--(void) softAPSetBridge:(id)AP password:(NSString*)password callback:(void (^)(BOOL))block{
+-(void) softAPSetBridge:(id)AP password:(NSString*)password callback:(void (^)(BOOL,NSString*))block{
     NSMutableDictionary * dict = [NSMutableDictionary dictionaryWithDictionary:AP];
     [dict setObject:password forKey:@"key"];
     __weak typeof(self) wself = self;
-    [self setAK:self.token callback:^(BOOL ret) {
+    [self setAK:self.token callback:^(BOOL ret,NSString* tid) {
         typeof(self) sself = wself;
         if (ret) {
             [sself hekrConfig:dict callback:block];
         }else{
-            !block?:block(NO);
+            !block?:block(NO,nil);
         }
     }];
 }
--(void) hekrConfig:(id)AP callback:(void (^)(BOOL))block{
+-(void) hekrConfig:(id)AP callback:(void (^)(BOOL,NSString*))block{
     NSString *ssid = [AP objectForKey:@"ssid"];
     NSString * encodedString = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef)ssid, NULL, (CFStringRef)@"!*’();:@&=+$,/?%#[]", kCFStringEncodingUTF8));
     
@@ -159,11 +159,11 @@ NSInteger convertSSID(NSString* ssidName){
             id json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
             if ([json isKindOfClass:[NSDictionary class]]) {
                 if([json objectForKey:@"code"] && [[json objectForKey:@"code"] integerValue] == 0){
-                    return !block?:block(YES);
+                    return !block?:block(YES,[json objectForKey:@"tid"]);
                 }
             }
         }
-        !block?:block(NO);
+        !block?:block(NO,nil);
     }];
 }
 @end

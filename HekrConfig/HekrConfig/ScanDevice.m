@@ -55,7 +55,7 @@
             [self sendDatas];
         });
     }else{
-        !self.block?:self.block(NO);
+        !self.block?:self.block(NO,nil);
     }
 }
 -(void) cancel{
@@ -99,7 +99,7 @@
     [self.udpSocket close];
     typeof(self.block) block = self.block;
     self.block = nil;
-    !block?:block(self.finishFlag);
+    !block?:block(self.finishFlag,nil);
 }
 
 
@@ -133,13 +133,19 @@ withFilterContext:(id)filterContext
     {
         NSLog(@"RECV: %@", msg);
         if ([msg rangeOfString:@"deviceACK"].location != NSNotFound){
+            NSString * tid = nil;
+            NSScanner * scanner = [NSScanner scannerWithString:msg];
+            [scanner scanString:@"(" intoString:nil];
+            [scanner scanString:@"deviceACK" intoString:nil];
+            [scanner scanString:@"\"" intoString:nil];
+            [scanner scanUpToString:@"\"" intoString:&tid];
             NSLog(@"配置成功");
             self.finishFlag=YES;
             [self.udpSocket close];
             
             typeof(self.block) block = self.block;
             self.block = nil;
-            !block?:block(self.finishFlag);
+            !block?:block(YES,tid);
         }
     }
 }

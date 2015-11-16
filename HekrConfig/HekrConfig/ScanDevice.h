@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface ScanDevice : NSObject
-@property (nonatomic,copy) void(^block)(BOOL);
+@property (nonatomic,copy) void(^block)(BOOL,NSString*);
 -(instancetype) initWithToken:(NSString*) token ssid:(NSString*) ssid password:(NSString*) password;
 -(void) start;
 -(void) cancel;
