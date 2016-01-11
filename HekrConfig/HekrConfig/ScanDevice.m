@@ -55,6 +55,7 @@
             [self sendDatas];
         });
     }else{
+        NSLog(@"scan device bind error:%@",error);
         !self.block?:self.block(NO,nil);
     }
 }
