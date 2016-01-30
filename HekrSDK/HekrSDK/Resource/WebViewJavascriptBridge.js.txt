@@ -1,0 +1,397 @@
+;(function() {
+  if (window.WebViewJavascriptBridge) { return }
+  var messagingIframe
+  var sendMessageQueue = []
+  var receiveMessageQueue = []
+  var messageHandlers = {}
+
+  var CUSTOM_PROTOCOL_SCHEME = 'wvjbscheme'
+  var QUEUE_HAS_MESSAGE = '__WVJB_QUEUE_MESSAGE__'
+
+  var responseCallbacks = {}
+  var uniqueId = 1
+
+  function _createQueueReadyIframe(doc) {
+    messagingIframe = doc.createElement('iframe')
+    messagingIframe.style.display = 'none'
+    messagingIframe.src = CUSTOM_PROTOCOL_SCHEME + '://' + QUEUE_HAS_MESSAGE
+    doc.documentElement.appendChild(messagingIframe)
+  }
+
+  function init(messageHandler) {
+    if (WebViewJavascriptBridge._messageHandler) { throw new Error('WebViewJavascriptBridge.init called twice') }
+    WebViewJavascriptBridge._messageHandler = messageHandler
+    var receivedMessages = receiveMessageQueue
+    receiveMessageQueue = null
+    for (var i=0; i<receivedMessages.length; i++) {
+      _dispatchMessageFromObjC(receivedMessages[i])
+    }
+  }
+
+  function send(data, responseCallback) {
+    _doSend({ data:data }, responseCallback)
+  }
+
+  function registerHandler(handlerName, handler) {
+    messageHandlers[handlerName] = handler
+  }
+
+  function callHandler(handlerName, data, responseCallback) {
+    _doSend({ handlerName:handlerName, data:data }, responseCallback)
+  }
+
+  function _doSend(message, responseCallback) {
+    if (responseCallback) {
+      var callbackId = 'cb_'+(uniqueId++)+'_'+new Date().getTime()
+      responseCallbacks[callbackId] = responseCallback
+      message['callbackId'] = callbackId
+    }
+    sendMessageQueue.push(message)
+    messagingIframe.src = CUSTOM_PROTOCOL_SCHEME + '://' + QUEUE_HAS_MESSAGE
+  }
+
+  function _fetchQueue() {
+    var messageQueueString = JSON.stringify(sendMessageQueue)
+    sendMessageQueue = []
+    return messageQueueString
+  }
+
+  function _dispatchMessageFromObjC(messageJSON) {
+    setTimeout(function _timeoutDispatchMessageFromObjC() {
+      var message = JSON.parse(messageJSON)
+      var messageHandler
+
+      if (message.responseId) {
+        var responseCallback = responseCallbacks[message.responseId]
+        if (!responseCallback) { return; }
+        responseCallback(message.responseData)
+        delete responseCallbacks[message.responseId]
+      } else {
+        var responseCallback
+        if (message.callbackId) {
+          var callbackResponseId = message.callbackId
+          responseCallback = function(responseData) {
+            _doSend({ responseId:callbackResponseId, responseData:responseData })
+          }
+        }
+
+        var handler = WebViewJavascriptBridge._messageHandler
+        if (message.handlerName) {
+          handler = messageHandlers[message.handlerName]
+        }
+
+        try {
+          handler(message.data, responseCallback)
+        } catch(exception) {
+          if (typeof console != 'undefined') {
+            console.log("WebViewJavascriptBridge: WARNING: javascript handler threw.", message, exception)
+          }
+        }
+      }
+    })
+  }
+
+  function _handleMessageFromObjC(messageJSON) {
+    if (receiveMessageQueue) {
+      receiveMessageQueue.push(messageJSON)
+    } else {
+      _dispatchMessageFromObjC(messageJSON)
+    }
+  }
+
+  function _initHekrSDK(bridge) {
+    function _getDevices(callback){
+      bridge.callHandler('getDevices',{},function(res){
+        callback(res.obj,res.error);
+      });
+    }
+    function _sendMsg(tid,msg,type){
+      bridge.callHandler('sendMsg',{'tid':tid,'msg':msg,'type':type},function(ret){
+
+      });
+    }
+    function _setMsgHandle(tid,handle){
+      window.Hekr.messageHandels[tid] = handle;
+    }
+    function _renameDevice(tid,name,callback){
+      bridge.callHandler('renameDevice',{'tid':tid,"name":name},function(ret){
+        callback(ret.obj,ret.error);
+      });
+    }
+    function _setGroup(tid,gid,name,callback){
+      bridge.callHandler('setGroup',{'tid':tid,'name':name,'gid':gid},function(ret){
+        callback(ret.obj,ret.error);
+      });
+    }
+    function _getGroups(callback){
+      bridge.callHandler('getGroups',{},function(res){
+        callback(res.obj,res.error);
+      });
+    }
+    function _createGroup(name,callback){
+      bridge.callHandler('createGroup',{'name':name},function(ret){
+        callback(ret.obj,ret.error);
+      });
+    }
+    function _removeGroup(gid,callback){
+      bridge.callHandler('removeGroup',{'gid':gid},function(ret){
+        callback(ret.obj,ret.error);
+      });
+    }
+    function _renameGroup(gid,name,callback){
+      bridge.callHandler('renameGroup',{'gid':gid,'name':name},function(ret){
+        callback(ret.obj,ret.error);
+      });
+    }
+    function _config(ssid,pwd,callback){
+      bridge.callHandler('config',{'ssid':ssid,'pwd':pwd},function(ret){
+        callback(ret.obj,ret.error);
+      });
+    }
+    function _isConnectSoftAP(callback){
+      bridge.callHandler('isConnectSoftAP',{},function(ret){
+        callback(ret.obj);
+      });
+    }
+    function _getAPList(callback){
+      bridge.callHandler('getAPList',{},function(res){
+        callback(res.obj,res.error);
+      });
+    }
+    function _cancelConfig(){
+      bridge.callHandler('cancelConfig',{},function(ret){
+
+      });
+    }
+    function _currentUser(callback){
+      bridge.callHandler('currentUser',{},function(ret){
+        callback(ret.obj);
+      });
+    }
+    function _logout(){
+      bridge.callHandler('logout',{},function(ret){
+      });
+    }
+    function _onUser(callback){
+      window.Hekr.userHandel = function(ret){
+        callback(ret.obj);
+      };
+    }
+    function _onRemoteNotification(callback){
+      window.Hekr.remoteNotificationHandle = callback;
+      bridge.callHandler('remoteNotificationsReady',{},function(ret){
+      });
+    }
+    function _defaultRemoteNotificationHandle(notification){
+
+    }
+    function _defaultUserHandel(user){
+    }
+    function _close(animation){
+      bridge.callHandler('close',{'animation':animation},function(ret){
+      });
+    }
+    function _closeAll(animation){
+      bridge.callHandler('closeAll',{'animation':animation},function(ret){
+      });
+    }
+    function _currentSSID(callback){
+      bridge.callHandler('currentSSID',{},function(res){
+        callback(res.obj);
+      });
+    }
+    function _open(schameurl){
+      bridge.callHandler('open',{'url':schameurl},function(res){
+      });
+    }
+    function _qrScan(title,callback){
+      bridge.callHandler('qrScan',{"title":title},function(res){
+        callback(res.code,res.error);
+      });
+    }
+    function _backTo(path,animation){
+      bridge.callHandler('backTo',{'path':path,'animation':animation},function(res){});
+    }
+    function _getPreferences(callback){
+      bridge.callHandler('getPreferences',{},function(res){
+        callback(res.obj,res.error);
+      });
+    }
+    function _setPreferences(json,callback){
+      bridge.callHandler('setPreferences',{'obj':json},function(res){
+        callback(res.obj,res.error);
+      });
+    }
+    function _removeDevice(tid,callback){
+      bridge.callHandler('removeDevice',{'tid':tid},function(res){
+        callback(res.obj,res.error);
+      });
+    }
+    function _deviceAuthList(tid,callback){
+      bridge.callHandler('deviceAuthList',{'tid':tid},function(res){
+        callback(res.obj,res.error);
+      });
+    }
+    function _deviceDeauth(tid,from,grant,callback){
+      bridge.callHandler('deviceDeauth',{'tid':tid,'from':from,'grant':grant},function(res){
+        callback(res.obj,res.error);
+      });
+    }
+    function _deviceAuth(tid,grant,desc,callback){
+      bridge.callHandler('deviceAuth',{'tid':tid,'grant':grant,'desc':desc},function(res){
+        callback(res.obj,res.error);
+      });
+    }
+    function _checkDeviceUpdate(tid,mid,version,type,callback){
+      bridge.callHandler('checkDeviceUpdate',{'tid':tid,'mid':mid,'ver':version,'type':type},function(res){
+        callback(res.obj,res.error);
+      });
+    }
+    function _guestLogin(callback){
+      bridge.callHandler('guestLogin',{},function(res){
+        callback(res.obj,res.error);
+      });
+    }
+    function _saveConfig(obj){
+      bridge.callHandler('saveConfig',{"obj":obj},function(res){
+      });
+    }
+    function _getConfig(callback){
+      bridge.callHandler('getConfig',{},function(res){
+        callback(res.obj);
+      });
+    }
+    function _report(msg,callback){
+      bridge.callHandler('report',{"msg":msg},function(res){
+        callback(res.obj);
+      });
+    }
+    function _warningList(tid,callback){
+      bridge.callHandler('warningList',{"tid":tid},function(res){
+        callback(res.obj);
+      });
+    }
+    function _createScheduler(tid,name,cronexpr,code,desc,callback){
+      bridge.callHandler('createScheduler',{"tid":tid,"name":name,"cronexpr":cronexpr,"code":code,"desc":desc},function(res){
+        callback(res.obj);
+      });
+    }
+    function _schedulerList(tid,callback){
+      bridge.callHandler('schedulerList',{"tid":tid},function(res){
+        callback(res.obj);
+      });
+    }
+    function _setNotifyHandel(func){
+      window.Hekr.notifyHandel = func;
+    }
+    function _defaultNotifyHandel(data){
+    }
+    function _notify(data){
+      bridge.callHandler('notify',{"obj":data},function(res){
+
+      });
+    }
+    function _choseAndUploadImage(camer,callback){
+      bridge.callHandler('choseAndUploadImage',{"camer":camer},function(res){
+        callback(res.obj);
+      });
+    }
+    function _setNetChange(handle){
+      window.Hekr.netChangeHandel = handle;
+    }
+    function _defaultNetHandle(){
+
+    }
+    window.Hekr = {
+      plantform:"iOS",
+      messageHandels:{},
+      userHandel:_defaultUserHandel,
+      netChangeHandel:_defaultNetHandle,
+      remoteNotificationHandle:_defaultRemoteNotificationHandle,
+      notifyHandel:_defaultNotifyHandel,
+      getDevices:_getDevices,
+      sendMsg:_sendMsg,
+      setMsgHandle:_setMsgHandle,
+      renameDevice:_renameDevice,
+      setGroup:_setGroup,
+      getGroups:_getGroups,
+      createGroup:_createGroup,
+      renameGroup:_renameGroup,
+      removeGroup:_removeGroup,
+      config:_config,
+      isConnectSoftAP:_isConnectSoftAP,
+      getAPList:_getAPList,
+      cancelConfig:_cancelConfig,
+      currentUser:_currentUser,
+      logout:_logout,
+      onUser:_onUser,
+      close:_close,
+      closeAll:_closeAll,
+      currentSSID:_currentSSID,
+      onRemoteNotification:_onRemoteNotification,
+      open:_open,
+      qrScan:_qrScan,
+      backTo:_backTo,
+      getPreferences:_getPreferences,
+      setPreferences:_setPreferences,
+      removeDevice:_removeDevice,
+      deviceAuthList:_deviceAuthList,
+      deviceDeauth:_deviceDeauth,
+      deviceAuth:_deviceAuth,
+      checkDeviceUpdate:_checkDeviceUpdate,
+      guestLogin:_guestLogin,
+      saveConfig:_saveConfig,
+      getConfig:_getConfig,
+      report:_report,
+      warningList:_warningList,
+      createScheduler:_createScheduler,
+      schedulerList:_schedulerList,
+      setNotifyHandel:_setNotifyHandel,
+      notify:_notify,
+      choseAndUploadImage:_choseAndUploadImage,
+      setNetChange:_setNetChange
+    }
+    bridge.init(function(message, responseCallback) {
+      responseCallback({});
+    })
+    bridge.registerHandler('onMessage',function(data,callback){
+      var tid = data.tid;
+      var msg = data.msg;
+      if (Hekr.messageHandels.hasOwnProperty(tid)) {
+        Hekr.messageHandels[tid](msg);
+      }
+      callback({});
+    })
+    bridge.registerHandler('onUserChange',function(data,callback){
+      Hekr.userHandel(data);
+      callback({});
+    })
+    bridge.registerHandler('onNotify',function(data,callback){
+      Hekr.notifyHandel(data.obj);
+      callback({});
+    })
+    bridge.registerHandler('onNetChange',function(data,callback){
+      Hekr.netChangeHandel();
+      callback({});
+    })
+    window.close = function(){Hekr.close(true);}
+  }
+
+  window.WebViewJavascriptBridge = {
+    init: init,
+    send: send,
+    registerHandler: registerHandler,
+    callHandler: callHandler,
+    _fetchQueue: _fetchQueue,
+    _handleMessageFromObjC: _handleMessageFromObjC
+  }
+
+  _initHekrSDK(window.WebViewJavascriptBridge)
+
+  var doc = document
+  _createQueueReadyIframe(doc)
+  var readyEvent = doc.createEvent('Events')
+  readyEvent.initEvent('HekrSDKReady')
+  readyEvent.bridge = WebViewJavascriptBridge
+  doc.dispatchEvent(readyEvent)
+})();
