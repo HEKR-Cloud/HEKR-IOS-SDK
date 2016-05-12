@@ -24,7 +24,7 @@
 
 @interface Hekr(Net)
 -(void) send:(id) json to:(id) dev callback:(void(^)(id data,NSError*)) block;
--(void) recv:(id) filter obj:(id) obj callback:(void(^)(id obj,id data)) block;
+-(void) recv:(id) filter obj:(id) obj callback:(void(^)(id obj,id data,NSError*)) block;
 @end
 
 @interface Hekr(Config)
