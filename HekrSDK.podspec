@@ -89,9 +89,9 @@ Pod::Spec.new do |s|
     #  For header files it will include any header in the folder.
     #  Not including the public_header_files will make all headers public.
     #
+    s.public_header_files = "*.{h}"
 
     s.subspec 'Core' do |sp|
-      sp.public_header_files = "*.{h}"
       sp.resource_bundles = {
         'JSSDK' => ['WebViewJavascriptBridge.js.txt']
       }
