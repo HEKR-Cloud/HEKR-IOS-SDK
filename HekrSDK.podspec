@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
 
   s.name         = "HekrSDK"
   s.version      = "3.2"
-  s.summary      = "A short description of HekrSDK."
+  s.summary      = "SDK of Hekr."
 
   s.description  = <<-DESC
   A longer description of HekrConfig in Markdown format.
@@ -39,7 +39,7 @@ Pod::Spec.new do |s|
     #  Popular ones are 'MIT', 'BSD' and 'Apache License, Version 2.0'.
     #
 
-    s.license      = "MIT (example)"
+    s.license      = "see http://www.hekr.me"
     # s.license      = { :type => "MIT", :file => "FILE_LICENSE" }
 
 
