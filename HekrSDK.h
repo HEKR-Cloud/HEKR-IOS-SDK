@@ -10,20 +10,20 @@
 #import "HekrUserToken.h"
 #import "HekrWebView.h"
 
-extern NSString * HekrSDKUserChangeNotification;
+extern NSString * const HekrSDKUserChangeNotification;
 
-extern NSString * KeyOfHekr;//@"Hekr"
-extern NSString * KeyOfPush;//@"push"
-extern NSString * KeyOfSocial;//@"Social"
-extern NSString * KeyOfAppIdKey;//@"AppId"
-extern NSString * KeyOfAppKey;//@"AppKey"
-extern NSString * KeyOfAppSecurit;//@"AppSecurit"
-extern NSString * KeyOfSocialWeibo;//@"Weibo"
-extern NSString * KeyOfSocialQQ;//@"QQ"
-extern NSString * KeyOfSocialWeixin;//@"Weixin"
-extern NSString * KeyOfSocialFacebook;//@"Facebook"
-extern NSString * KeyOfSocialGoogle;//@"Google"
-extern NSString * KeyOfSocialTwitter;//@"Twitter"
+extern NSString * const KeyOfHekr;//@"Hekr"
+extern NSString * const KeyOfPush;//@"push"
+extern NSString * const KeyOfSocial;//@"Social"
+extern NSString * const KeyOfAppIdKey;//@"AppId"
+extern NSString * const KeyOfAppKey;//@"AppKey"
+extern NSString * const KeyOfAppSecurit;//@"AppSecurit"
+extern NSString * const KeyOfSocialWeibo;//@"Weibo"
+extern NSString * const KeyOfSocialQQ;//@"QQ"
+extern NSString * const KeyOfSocialWeixin;//@"Weixin"
+extern NSString * const KeyOfSocialFacebook;//@"Facebook"
+extern NSString * const KeyOfSocialGoogle;//@"Google"
+extern NSString * const KeyOfSocialTwitter;//@"Twitter"
 
 typedef UIViewController*(^HekrNativeControllerGenerator)();
 

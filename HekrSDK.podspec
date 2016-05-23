@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
 
   s.name         = "HekrSDK"
   s.version      = "3.2"
-  s.summary      = "SDK of Hekr."
+  s.summary      = "SDK for HEKR"
 
   s.description  = <<-DESC
   A longer description of HekrConfig in Markdown format.
@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
     * Finally, don't worry about the indent, CocoaPods strips it!
     DESC
 
-    s.homepage     = "http://www.hekr.me"
+    s.homepage     = "http://hekr.me"
     # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
 
@@ -79,24 +79,15 @@ Pod::Spec.new do |s|
     #  Supports git, hg, bzr, svn and HTTP.
     #
 
-    s.source       = { :git => "https://github.com/HEKR-Cloud/HEKR-IOS-SDK.git", :tag => "SDK3.2" }
-
-
-    # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-    #
-    #  CocoaPods is smart about how it includes source code. For source files
-    #  giving a folder will include any swift, h, m, mm, c & cpp files.
-    #  For header files it will include any header in the folder.
-    #  Not including the public_header_files will make all headers public.
-    #
-
+    s.source       = { :git => "https://github.com/HEKR-Cloud/HEKR-IOS-SDK.git", :branch => "SDK3.2" }
 
     s.subspec 'Core' do |sp|
-      sp.source_files = '**/*.{h}'
+      sp.source_files  = "*.h"
+      sp.public_header_files = "*.h"
+      sp.vendored_libraries = 'libHekrSDKCore.a'
       sp.resource_bundles = {
         'JSSDK' => ['WebViewJavascriptBridge.js.txt']
       }
-      sp.vendored_libraries = 'libHekrSDK.a'
       sp.requires_arc = true
 
       sp.dependency "CocoaAsyncSocket", "~> 7.4"
@@ -108,29 +99,37 @@ Pod::Spec.new do |s|
       sp.dependency "CocoaLumberjack", "~> 2.3.0"
     end
 
-    s.subspec 'SocailWeibo' do |sp|
+    s.subspec 'socialWeibo' do |sp|
+      sp.source_files  = "Social/SocialWeibo.m","Social/socialImp.h"
+      sp.requires_arc = true
+      sp.dependency "HekrSDK/Core"
       sp.dependency "WeiboSDK", "~> 3.1.3"
     end
 
-    s.subspec 'SocailQQ' do |sp|
+    s.subspec 'socialQQ' do |sp|
+      sp.source_files  = "Social/SocialQQ.m","Social/socialImp.h"
       sp.dependency "TencentOpenApiSDK","~> 2.9"
     end
 
-    s.subspec 'SocailWeixin' do |sp|
+    s.subspec 'socialWeixin' do |sp|
+      sp.source_files  = "Social/SocialWeixin.m","Social/socialImp.h"
       sp.dependency "WeixinSDK","~> 1.4"
     end
 
-    s.subspec 'SocailFacebook' do |sp|
+    s.subspec 'socialFacebook' do |sp|
+      sp.source_files  = "Social/SocialFacebook.m","Social/socialImp.h"
       sp.dependency "FBSDKLoginKit", "~> 4.8"
     end
 
-    s.subspec 'SocailTwitter' do |sp|
+    s.subspec 'socialTwitter' do |sp|
+      sp.source_files  = "Social/SocialTwitter.m","Social/socialImp.h"
       sp.dependency "TwitterCore", "~> 1.10.0"
       sp.dependency "TwitterKit", "~> 1.10.0"
     end
 
-    s.subspec 'SocailGoogle' do |sp|
-      sp.dependency "Google/SignIn", "~> 1.2"
+    s.subspec 'socialGoogle' do |sp|
+      sp.source_files  = "Social/SocialGoogle.m","Social/socialImp.h"
+      sp.dependency "Google/SignIn", "~> 2.0"
     end
 
     s.default_subspec = 'Core'
