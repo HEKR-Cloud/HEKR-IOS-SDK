@@ -99,12 +99,6 @@ Pod::Spec.new do |s|
       sp.dependency "CocoaLumberjack", "~> 2.3.0"
     end
 
-    s.prepare_command = <<-CMD
-                        echo 'patch start'
-                        find . -type f -name 'WebViewJavascriptBridgeBase.h' -exec perl -pi -e 's|assign|weak|g' {} +
-                        echo 'patch end'
-                   CMD
-
     s.subspec 'socialWeibo' do |sp|
       sp.source_files  = "Social/SocialWeibo.m","Social/socialImp.h"
       sp.requires_arc = true
