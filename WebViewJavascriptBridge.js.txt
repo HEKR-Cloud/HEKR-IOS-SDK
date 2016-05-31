@@ -163,6 +163,10 @@
       bridge.callHandler('closeAll',{'animation':animation},function(ret){
       });
     }
+    function _playSound(type){
+        bridge.callHandler('playSound',{'type':type},function(ret){
+        });
+    }
     function _currentSSID(callback){
       bridge.callHandler('currentSSID',{},function(res){
         callback(res.obj);
@@ -239,7 +243,8 @@
       setNotifyHandel:_setNotifyHandel,
       notify:_notify,
       takePhoto:_takePhoto,
-      setNetHandle:_setNetHandle
+      setNetHandle:_setNetHandle,
+      playSound:_playSound
     }
     bridge.init(function(message, responseCallback) {
       responseCallback({});

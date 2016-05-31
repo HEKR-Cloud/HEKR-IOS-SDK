@@ -35,7 +35,7 @@ typedef UIViewController*(^HekrNativeControllerGenerator)();
 -(void) config:(NSDictionary*) config startPage:(NSString*) url launchOptions:(NSDictionary*) launchOptions;
 -(void) didReceiveRemoteNotification:(NSDictionary*) userInfo;
 -(BOOL) openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
-
+-(void) didUserPushTagBind;
 
 -(HekrWebViewController*) webViewFor:(NSString*) url;
 -(UIViewController*) firstPage;
