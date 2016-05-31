@@ -100,8 +100,9 @@ Pod::Spec.new do |s|
     end
 
     s.prepare_command = <<-CMD
-                        find . -type f -name "WebViewJavascriptBridgeBase.h" -exec perl -pi -e 's|assign|weak|g' {} +
-                        echo "patch"
+                        echo 'patch start'
+                        find . -type f -name 'WebViewJavascriptBridgeBase.h' -exec perl -pi -e 's|assign|weak|g' {} +
+                        echo 'patch end'
                    CMD
 
     s.subspec 'socialWeibo' do |sp|
