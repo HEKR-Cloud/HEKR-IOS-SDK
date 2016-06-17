@@ -120,7 +120,7 @@
     function _callRecvHandle(data){
       if(data.funcId && window.Hekr.messageHandels.hasOwnProperty(data.funcId)){
         var func = window.Hekr.messageHandels[data.funcId];
-        func && func(data.obj);
+        func && func(data.obj,data.error);
       }
     }
     function _configSearch(ssid,pwd,callback){
@@ -177,7 +177,7 @@
       });
     }
     function _QRScan(title,callback){
-      bridge.callHandler('qrScan',{"title":title},function(res){
+      bridge.callHandler('QRScan',{"title":title},function(res){
         callback(res.code,res.error);
       });
     }
