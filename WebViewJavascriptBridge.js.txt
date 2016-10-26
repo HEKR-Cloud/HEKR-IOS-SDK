@@ -167,6 +167,10 @@
         bridge.callHandler('playSound',{'type':type},function(ret){
         });
     }
+    function _mscControl(grammar){
+        bridge.callHandler('mscControl',{'grammar':grammar},function(ret){
+        });
+    }
     function _currentSSID(callback){
       bridge.callHandler('currentSSID',{},function(res){
         callback(res.obj);
@@ -244,7 +248,8 @@
       notify:_notify,
       takePhoto:_takePhoto,
       setNetHandle:_setNetHandle,
-      playSound:_playSound
+      playSound:_playSound,
+      mscControl:_mscControl,
     }
     bridge.init(function(message, responseCallback) {
       responseCallback({});

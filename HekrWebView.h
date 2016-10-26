@@ -14,7 +14,7 @@
 @protocol HekrViewController <NSObject>
 @property (nonatomic,readonly) NSDictionary * param;
 @property (nonatomic,readonly) NSURL * templateURL;
--(void) jumpTo:(NSURL*) url;
+-(void) jumpTo:(NSURL*) url currentController:(UIViewController *)controller;
 -(void) backTo:(NSString*) path animation:(BOOL) animation;
 @end
 

@@ -40,6 +40,7 @@ extern NSString * const KeyOfSocialTwitter;//@"Twitter"
     [WeiboSDK registerApp:key];
 }
 -(void) auth:(UIViewController *)controller block:(void (^)(id, NSError *))block{
+    self.authBlock = block;
     WBAuthorizeRequest *request = [WBAuthorizeRequest request];
     request.redirectURI = @"https://api.weibo.com/oauth2/default.html";
     request.scope = @"all";
