@@ -100,67 +100,43 @@
   }
 
   function _initHekrSDK(bridge) {
-    function _getDevices(callback){
-      bridge.callHandler('getDevices',{},function(res){
-        callback(res.obj,res.error);
-      });
-    }
-    function _sendMsg(tid,msg,type){
-      bridge.callHandler('sendMsg',{'tid':tid,'msg':msg,'type':type},function(ret){
-
-      });
-    }
-    function _setMsgHandle(tid,handle){
-      window.Hekr.messageHandels[tid] = handle;
-    }
-    function _renameDevice(tid,name,callback){
-      bridge.callHandler('renameDevice',{'tid':tid,"name":name},function(ret){
+    function _send(command,devTid,callback){
+      bridge.callHandler('send',{'tid':devTid,'command':command},function(ret){
         callback(ret.obj,ret.error);
       });
     }
-    function _setGroup(tid,gid,name,callback){
-      bridge.callHandler('setGroup',{'tid':tid,'name':name,'gid':gid},function(ret){
-        callback(ret.obj,ret.error);
+    function _recv(filter,handle){
+      function createGuid(){
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+          var r = Math.random()*16|0, v = c === 'x' ? r : (r&0x3|0x8);
+          return v.toString(16);
+        });
+      }
+      var uuid = createGuid();
+      window.Hekr.messageHandels[uuid] = handle;
+      bridge.callHandler('recv',{'filter':filter,'funcId':uuid},function(ret){
       });
     }
-    function _getGroups(callback){
-      bridge.callHandler('getGroups',{},function(res){
-        callback(res.obj,res.error);
+    function _callRecvHandle(data){
+      if(data.funcId && window.Hekr.messageHandels.hasOwnProperty(data.funcId)){
+        var func = window.Hekr.messageHandels[data.funcId];
+        func && func(data.obj,data.error);
+      }
+    }
+    function _configSearch(ssid,pwd,callback){
+      bridge.configHandle = callback;
+      bridge.callHandler('configSearch',{'ssid':ssid,'pwd':pwd},function(ret){
       });
     }
-    function _createGroup(name,callback){
-      bridge.callHandler('createGroup',{'name':name},function(ret){
-        callback(ret.obj,ret.error);
-      });
+    function _defaultConfigSearchHandle(dev){
     }
-    function _removeGroup(gid,callback){
-      bridge.callHandler('removeGroup',{'gid':gid},function(ret){
-        callback(ret.obj,ret.error);
-      });
+    function _callConfigSearchHandle(data){
+        var func = bridge.configHandle;
+        func && func(data.obj);
     }
-    function _renameGroup(gid,name,callback){
-      bridge.callHandler('renameGroup',{'gid':gid,'name':name},function(ret){
-        callback(ret.obj,ret.error);
-      });
-    }
-    function _config(ssid,pwd,callback){
-      bridge.callHandler('config',{'ssid':ssid,'pwd':pwd},function(ret){
-        callback(ret.obj,ret.error);
-      });
-    }
-    function _isConnectSoftAP(callback){
-      bridge.callHandler('isConnectSoftAP',{},function(ret){
-        callback(ret.obj);
-      });
-    }
-    function _getAPList(callback){
-      bridge.callHandler('getAPList',{},function(res){
-        callback(res.obj,res.error);
-      });
-    }
-    function _cancelConfig(){
-      bridge.callHandler('cancelConfig',{},function(ret){
-
+    function _cancelConfigSearch(){
+      bridge.configHandle = _defaultConfigSearchHandle;
+      bridge.callHandler('cancelConfigSearch',{},function(ret){
       });
     }
     function _currentUser(callback){
@@ -172,18 +148,10 @@
       bridge.callHandler('logout',{},function(ret){
       });
     }
-    function _onUser(callback){
+    function _setUserHandle(callback){
       window.Hekr.userHandel = function(ret){
         callback(ret.obj);
       };
-    }
-    function _onRemoteNotification(callback){
-      window.Hekr.remoteNotificationHandle = callback;
-      bridge.callHandler('remoteNotificationsReady',{},function(ret){
-      });
-    }
-    function _defaultRemoteNotificationHandle(notification){
-
     }
     function _defaultUserHandel(user){
     }
@@ -195,6 +163,14 @@
       bridge.callHandler('closeAll',{'animation':animation},function(ret){
       });
     }
+    function _playSound(type){
+        bridge.callHandler('playSound',{'type':type},function(ret){
+        });
+    }
+    function _mscControl(grammar){
+        bridge.callHandler('mscControl',{'grammar':grammar},function(ret){
+        });
+    }
     function _currentSSID(callback){
       bridge.callHandler('currentSSID',{},function(res){
         callback(res.obj);
@@ -204,51 +180,16 @@
       bridge.callHandler('open',{'url':schameurl},function(res){
       });
     }
-    function _qrScan(title,callback){
-      bridge.callHandler('qrScan',{"title":title},function(res){
+    function _QRScan(title,callback){
+      bridge.callHandler('QRScan',{"title":title},function(res){
         callback(res.code,res.error);
       });
     }
     function _backTo(path,animation){
       bridge.callHandler('backTo',{'path':path,'animation':animation},function(res){});
     }
-    function _getPreferences(callback){
-      bridge.callHandler('getPreferences',{},function(res){
-        callback(res.obj,res.error);
-      });
-    }
-    function _setPreferences(json,callback){
-      bridge.callHandler('setPreferences',{'obj':json},function(res){
-        callback(res.obj,res.error);
-      });
-    }
-    function _removeDevice(tid,callback){
-      bridge.callHandler('removeDevice',{'tid':tid},function(res){
-        callback(res.obj,res.error);
-      });
-    }
-    function _deviceAuthList(tid,callback){
-      bridge.callHandler('deviceAuthList',{'tid':tid},function(res){
-        callback(res.obj,res.error);
-      });
-    }
-    function _deviceDeauth(tid,from,grant,callback){
-      bridge.callHandler('deviceDeauth',{'tid':tid,'from':from,'grant':grant},function(res){
-        callback(res.obj,res.error);
-      });
-    }
-    function _deviceAuth(tid,grant,desc,callback){
-      bridge.callHandler('deviceAuth',{'tid':tid,'grant':grant,'desc':desc},function(res){
-        callback(res.obj,res.error);
-      });
-    }
-    function _checkDeviceUpdate(tid,mid,version,type,callback){
-      bridge.callHandler('checkDeviceUpdate',{'tid':tid,'mid':mid,'ver':version,'type':type},function(res){
-        callback(res.obj,res.error);
-      });
-    }
-    function _guestLogin(callback){
-      bridge.callHandler('guestLogin',{},function(res){
+    function _login(userName,password,callback){
+      bridge.callHandler('login',{"userName":userName,"password":password},function(res){
         callback(res.obj,res.error);
       });
     }
@@ -261,118 +202,77 @@
         callback(res.obj);
       });
     }
-    function _report(msg,callback){
-      bridge.callHandler('report',{"msg":msg},function(res){
-        callback(res.obj);
+    function _notify(data){
+      bridge.callHandler('notify',{"obj":data},function(res){
       });
-    }
-    function _warningList(tid,callback){
-      bridge.callHandler('warningList',{"tid":tid},function(res){
-        callback(res.obj);
-      });
-    }
-    function _createScheduler(tid,name,cronexpr,code,desc,callback){
-      bridge.callHandler('createScheduler',{"tid":tid,"name":name,"cronexpr":cronexpr,"code":code,"desc":desc},function(res){
-        callback(res.obj);
-      });
-    }
-    function _schedulerList(tid,callback){
-      bridge.callHandler('schedulerList',{"tid":tid},function(res){
-        callback(res.obj);
-      });
-    }
-    function _setNotifyHandel(func){
-      window.Hekr.notifyHandel = func;
     }
     function _defaultNotifyHandel(data){
     }
-    function _notify(data){
-      bridge.callHandler('notify',{"obj":data},function(res){
-
+    function _setNotifyHandel(handle){
+      window.Hekr.notifyHandel = handle;
+    }
+    function _takePhoto(camera,callback){
+      bridge.callHandler('takePhoto',{"camera":camera},function(res){
+        callback(res.obj,res.error);
       });
     }
-    function _choseAndUploadImage(camer,callback){
-      bridge.callHandler('choseAndUploadImage',{"camer":camer},function(res){
-        callback(res.obj);
-      });
-    }
-    function _setNetChange(handle){
+    function _setNetHandle(handle){
       window.Hekr.netChangeHandel = handle;
     }
     function _defaultNetHandle(){
-
     }
     window.Hekr = {
       plantform:"iOS",
       messageHandels:{},
+      configHandle:_defaultConfigSearchHandle,
       userHandel:_defaultUserHandel,
       netChangeHandel:_defaultNetHandle,
-      remoteNotificationHandle:_defaultRemoteNotificationHandle,
       notifyHandel:_defaultNotifyHandel,
-      getDevices:_getDevices,
-      sendMsg:_sendMsg,
-      setMsgHandle:_setMsgHandle,
-      renameDevice:_renameDevice,
-      setGroup:_setGroup,
-      getGroups:_getGroups,
-      createGroup:_createGroup,
-      renameGroup:_renameGroup,
-      removeGroup:_removeGroup,
-      config:_config,
-      isConnectSoftAP:_isConnectSoftAP,
-      getAPList:_getAPList,
-      cancelConfig:_cancelConfig,
+      send:_send,
+      recv:_recv,
+      configSearch:_configSearch,
+      cancelConfigSearch:_cancelConfigSearch,
       currentUser:_currentUser,
+      login:_login,
       logout:_logout,
-      onUser:_onUser,
+      setUserHandle:_setUserHandle,
       close:_close,
       closeAll:_closeAll,
       currentSSID:_currentSSID,
-      onRemoteNotification:_onRemoteNotification,
       open:_open,
-      qrScan:_qrScan,
+      QRScan:_QRScan,
       backTo:_backTo,
-      getPreferences:_getPreferences,
-      setPreferences:_setPreferences,
-      removeDevice:_removeDevice,
-      deviceAuthList:_deviceAuthList,
-      deviceDeauth:_deviceDeauth,
-      deviceAuth:_deviceAuth,
-      checkDeviceUpdate:_checkDeviceUpdate,
-      guestLogin:_guestLogin,
       saveConfig:_saveConfig,
       getConfig:_getConfig,
-      report:_report,
-      warningList:_warningList,
-      createScheduler:_createScheduler,
-      schedulerList:_schedulerList,
       setNotifyHandel:_setNotifyHandel,
       notify:_notify,
-      choseAndUploadImage:_choseAndUploadImage,
-      setNetChange:_setNetChange
+      takePhoto:_takePhoto,
+      setNetHandle:_setNetHandle,
+      playSound:_playSound,
+      mscControl:_mscControl,
     }
     bridge.init(function(message, responseCallback) {
       responseCallback({});
     })
-    bridge.registerHandler('onMessage',function(data,callback){
-      var tid = data.tid;
-      var msg = data.msg;
-      if (Hekr.messageHandels.hasOwnProperty(tid)) {
-        Hekr.messageHandels[tid](msg);
-      }
-      callback({});
+    bridge.registerHandler('onConfigSearch',function(data,callback){
+      _callConfigSearchHandle(data);
+      callback && callback({});
+    })
+    bridge.registerHandler('onRecv',function(data,callback){
+      _callRecvHandle(data);
+      callback && callback({});
     })
     bridge.registerHandler('onUserChange',function(data,callback){
       Hekr.userHandel(data);
-      callback({});
+      callback && callback({});
     })
     bridge.registerHandler('onNotify',function(data,callback){
       Hekr.notifyHandel(data.obj);
-      callback({});
+      callback && callback({});
     })
     bridge.registerHandler('onNetChange',function(data,callback){
       Hekr.netChangeHandel();
-      callback({});
+      callback && callback({});
     })
     window.close = function(){Hekr.close(true);}
   }
