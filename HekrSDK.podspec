@@ -84,6 +84,7 @@ Pod::Spec.new do |s|
     s.subspec 'Core' do |sp|
       sp.source_files  = "*.{h}"
       sp.public_header_files = "*.{h}"
+      sp.vendored_libraries = 'libHekrSDKCore.a'
 
       sp.resource_bundles = {
         'JSSDK' => ['WebViewJavascriptBridge.js.txt']
