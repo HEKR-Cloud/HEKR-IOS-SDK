@@ -82,7 +82,7 @@ Pod::Spec.new do |s|
     s.source       = { :git => "https://github.com/HEKR-Cloud/HEKR-IOS-SDK.git", :tag => "SDK3.3" }
 
     s.subspec 'Core' do |sp|
-      sp.source_files  = "HekrSDK/Private/*.{h,m}", "HekrSDK/*.{h,m}", "HekrSDK/Social/socialImp.h", "HekrSDK/MSC/HekrMscMgrImp.h"
+      sp.source_files  = "HekrSDK/*.{h}"
       sp.public_header_files = "HekrSDK/*.{h}"
 
       sp.resource_bundles = {
