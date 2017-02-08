@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "HekrSDK"
-  s.version      = "3.3"
+  s.version      = "3.3.1"
   s.summary      = "SDK for HEKR"
 
   s.description  = <<-DESC
@@ -79,7 +79,7 @@ Pod::Spec.new do |s|
     #  Supports git, hg, bzr, svn and HTTP.
     #
 
-    s.source       = { :git => "https://github.com/HEKR-Cloud/HEKR-IOS-SDK.git", :tag => "SDK3.3" }
+    s.source       = { :git => "https://github.com/HEKR-Cloud/HEKR-IOS-SDK.git", :tag => "SDK3.3.1" }
 
     s.subspec 'Core' do |sp|
       sp.source_files  = "*.{h}"
@@ -99,6 +99,7 @@ Pod::Spec.new do |s|
       sp.dependency "GetuiSDK", "~> 1.4"
       sp.dependency "CocoaLumberjack", "~> 2.3.0"
       sp.dependency 'Masonry', '~> 1.0.1'
+      sp.dependency 'SHAlertViewBlocks', '~> 1.2.1'
 
     end
 

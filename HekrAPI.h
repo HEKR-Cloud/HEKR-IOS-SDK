@@ -18,6 +18,7 @@ typedef NS_ENUM(NSUInteger, HekrLocalControl) {
 typedef NS_ENUM(NSUInteger, HekrSSOType) {
     HekrSSOLogin,
     HekrSSOBind,
+    HekrShareSina,
 };
 
 @interface Hekr(Cloud)
@@ -38,7 +39,7 @@ typedef NS_ENUM(NSUInteger, HekrSSOType) {
 -(HekrLocalControl) getLocalControl;
 -(void) send:(id) json to:(id) dev callback:(void(^)(id data,NSError*)) block;
 -(void) recv:(id) filter obj:(id) obj callback:(void(^)(id obj,id data,NSError*)) block;
--(void) sendNet:(id)json to:(id)dev callback:(void (^)(id, NSError *))block;
+-(void) sendNet:(id)json to:(id)dev timeout:(NSTimeInterval) timeout callback:(void (^)(id, NSError *))block;
 @end
 
 @interface Hekr(Config)
