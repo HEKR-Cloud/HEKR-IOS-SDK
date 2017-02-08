@@ -8,6 +8,8 @@
 
 #import "socialImp.h"
 #import <TencentOpenAPI/TencentOAuth.h>
+#import <TencentOpenAPI/QQApiInterface.h>
+#import <TencentOpenAPI/QQApiInterfaceObject.h>
 
 extern NSString * const KeyOfHekr;//@"Hekr"
 extern NSString * const KeyOfPush;//@"push"
@@ -74,6 +76,20 @@ extern NSString * const KeyOfSocialTwitter;//@"Twitter"
     self.authBlock = nil;
     if (block!=nil) {
         block(token,error);
+    }
+}
+
+-(void) shareWebView:(NSString *)shareURL devName:(NSString *)devName cidName:(NSString *)cidName captureImg:(UIImage *)captureImg type:(NSInteger)type{
+    
+    NSData *fData = UIImageJPEGRepresentation(captureImg, 0.5);
+    QQApiNewsObject *newsObj = [QQApiNewsObject objectWithURL:[NSURL URLWithString:shareURL] title:devName description:cidName previewImageData:fData];
+    SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:newsObj];
+    
+    if (type == 0) {
+        QQApiSendResultCode sent = [QQApiInterface sendReq:req];
+    }
+    else {
+        QQApiSendResultCode sent = [QQApiInterface SendReqToQZone:req];
     }
 }
 @end

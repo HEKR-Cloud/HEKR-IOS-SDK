@@ -14,7 +14,7 @@
 @protocol HekrViewController <NSObject>
 @property (nonatomic,readonly) NSDictionary * param;
 @property (nonatomic,readonly) NSURL * templateURL;
--(void) jumpTo:(NSURL*) url currentController:(UIViewController *)controller;
+-(void) jumpTo:(NSURL*) url currentController:(UIViewController *)controller divName:(NSString *)divName cidName:(NSString *)cidName;
 -(void) backTo:(NSString*) path animation:(BOOL) animation;
 @end
 
@@ -24,4 +24,6 @@
 
 @interface HekrWebViewController : UIViewController
 @property (nonatomic,weak,readonly) HekrWebView * webView;
+-(void)share:(NSString *)info divName:(NSString *)divName cidName:(NSString *)cidName;
+-(void)fingerprintIdentification:(void(^)(BOOL))block;
 @end

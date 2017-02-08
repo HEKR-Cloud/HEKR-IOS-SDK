@@ -44,4 +44,8 @@ typedef UIViewController*(^HekrNativeControllerGenerator)();
 -(void) setNotificationHandle:(void(^)(id note,BOOL isUserSelected)) handle;
 
 -(void) registNativeControll:(HekrNativeControllerGenerator)generator forTemplate:(NSString*) templateName resource:(NSString*) resource;
+
+-(void) callwebsocketHandle:(void(^)(id data,BOOL isLoop)) handle;
+-(BOOL) getWebsocketSendLoop;
+
 @end

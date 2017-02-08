@@ -70,4 +70,20 @@ extern NSString * const KeyOfSocialTwitter;//@"Twitter"
         block(token,error);
     }
 }
+
+-(void)shareWebView:(NSString *)shareURL devName:(NSString *)devName cidName:(NSString *)cidName captureImg:(UIImage *)captureImg type:(NSInteger)type{
+    WXMediaMessage *message = [WXMediaMessage message];
+    message.title = devName;
+    message.description = cidName;
+    [message setThumbImage:captureImg];
+    WXWebpageObject *webpageObject = [WXWebpageObject object];
+    webpageObject.webpageUrl = shareURL;
+    message.mediaObject = webpageObject;
+    SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];
+    req.bText = NO;
+    req.message = message;
+    req.scene = type==2?WXSceneSession:WXSceneTimeline;
+    [WXApi sendReq:req];
+}
+
 @end

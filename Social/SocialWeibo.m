@@ -66,4 +66,20 @@ extern NSString * const KeyOfSocialTwitter;//@"Twitter"
         block(token,error);
     }
 }
+
+-(void) shareWebView:(NSString *)shareURL devName:(NSString *)devName cidName:(NSString *)cidName captureImg:(UIImage *)captureImg type:(NSInteger)type{
+    
+    WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:[self messageObjToShare:shareURL devName:devName cidName:cidName captureImg:captureImg]];
+    [WeiboSDK sendRequest:request];
+}
+
+- (WBMessageObject *)messageObjToShare:(NSString *)shareURL devName:(NSString *)devName cidName:(NSString *)cidName captureImg:(UIImage *)captureImg{
+    WBMessageObject *messageObj = [WBMessageObject message];
+    messageObj.text = [NSString stringWithFormat:@"%@---%@  %@",devName,cidName,shareURL];
+    WBImageObject *imgObj = [WBImageObject object];
+    imgObj.imageData = UIImageJPEGRepresentation(captureImg, 0.5);
+    messageObj.imageObject = imgObj;
+    return messageObj;
+}
+
 @end
