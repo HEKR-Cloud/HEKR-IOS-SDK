@@ -96,7 +96,7 @@ Pod::Spec.new do |s|
       sp.dependency "AFNetworking", "~> 3.0"
       sp.dependency "WebViewJavascriptBridge", "~> 4.1"
       sp.dependency "ZipArchive", "~> 1.4"
-      sp.dependency "GetuiSDK", "~> 1.4"
+      sp.dependency "GTSDK", "~> 1.5"
       sp.dependency "CocoaLumberjack", "~> 2.3.0"
       sp.dependency 'Masonry', '~> 1.0.1'
       sp.dependency 'SHAlertViewBlocks', '~> 1.2.1'
