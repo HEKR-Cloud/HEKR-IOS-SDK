@@ -229,6 +229,19 @@ window.Hekr.netChangeHandel = handle;
 }
 function _defaultNetHandle(){
 }
+var ssLog = console.log;
+function zlog(a,b,c,d,e,f,g,h,i,j,k,l,m,n){
+var arr = [a,b,c,d,e,f,g,h,i,j,k,l,m,n].filter(function(item){return !!item});
+bridge.callHandler('log', arr , function(res){});
+}
+function _logOn(){
+console.log = zlog;
+console.error = zlog;
+}
+function _logOff(){
+console.log = ssLog;
+console.error = ssLog;
+}
 window.Hekr = {
 plantform:"iOS",
 messageHandels:{},
@@ -285,6 +298,8 @@ Hekr.netChangeHandel();
 callback && callback({});
 })
 window.close = function(){Hekr.close(true);}
+new MutationObserver(function(){bridge.callHandler("bodyUpdate",{},function(){})}).
+observe(document.body,{attributes:true});
 }
 
 window.WebViewJavascriptBridge = {

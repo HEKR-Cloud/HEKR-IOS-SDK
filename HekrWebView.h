@@ -26,4 +26,5 @@
 @property (nonatomic,weak,readonly) HekrWebView * webView;
 -(void)share:(NSString *)info divName:(NSString *)divName cidName:(NSString *)cidName;
 -(void)fingerprintIdentification:(void(^)(BOOL))block;
+-(void)viewBodyUpdate;
 @end
