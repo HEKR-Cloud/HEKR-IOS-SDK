@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "HekrSDK"
-  s.version      = "3.3.3"
+  s.version      = "3.4"
   s.summary      = "SDK for HEKR"
 
   s.description  = <<-DESC
@@ -65,7 +65,7 @@ Pod::Spec.new do |s|
     #
 
     s.platform     = :ios
-    s.platform     = :ios, "7.0"
+    s.platform     = :ios, "8.0"
 
     #  When using multiple platforms
     # s.ios.deployment_target = "5.0"
@@ -79,22 +79,21 @@ Pod::Spec.new do |s|
     #  Supports git, hg, bzr, svn and HTTP.
     #
 
-    s.source       = { :git => "https://github.com/HEKR-Cloud/HEKR-IOS-SDK.git", :tag => "SDK3.3.3" }
+    s.source       = { :git => "https://github.com/HEKR-Cloud/HEKR-IOS-SDK.git", :tag => "SDK3.4" }
 
     s.subspec 'Core' do |sp|
       sp.source_files  = "*.{h}"
       sp.public_header_files = "*.{h}"
       sp.vendored_libraries = 'libHekrSDKCore.a'
-
+      sp.frameworks = ['WebKit']
       sp.resource_bundles = {
-        'JSSDK' => ['WebViewJavascriptBridge.js.txt']
+        'JSSDK' => ['new.js','old.js']
       }
       sp.requires_arc = true
 
       sp.dependency "CocoaAsyncSocket", "~> 7.4"
       sp.dependency "SocketRocket", "~> 0.4"
       sp.dependency "AFNetworking", "~> 3.0"
-      sp.dependency "WebViewJavascriptBridge", "~> 4.1"
       sp.dependency "ZipArchive", "~> 1.4"
       sp.dependency "GTSDK", "~> 1.6"
       sp.dependency "CocoaLumberjack", "~> 2.3.0"

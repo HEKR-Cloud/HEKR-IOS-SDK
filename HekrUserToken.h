@@ -11,4 +11,5 @@
 @interface HekrUserToken : NSObject
 @property (nonatomic,strong,readonly) NSString * uid;
 @property (nonatomic,strong,readonly) NSString * access_token;
+@property (nonatomic,strong,readonly) NSString * ezviz_token;
 @end

@@ -7,14 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
 
-@interface HekrWebView : UIWebView
+@interface HekrWebView : WKWebView
 @end
 
 @protocol HekrViewController <NSObject>
 @property (nonatomic,readonly) NSDictionary * param;
 @property (nonatomic,readonly) NSURL * templateURL;
--(void) jumpTo:(NSURL*) url currentController:(UIViewController *)controller divName:(NSString *)divName cidName:(NSString *)cidName;
+-(void) jumpTo:(NSURL*) url currentController:(UIViewController *)controller devData:(NSDictionary *)data devProtocol:(NSDictionary *)protocol;
 -(void) backTo:(NSString*) path animation:(BOOL) animation;
 @end
 
@@ -24,7 +25,8 @@
 
 @interface HekrWebViewController : UIViewController
 @property (nonatomic,weak,readonly) HekrWebView * webView;
--(void)share:(NSString *)info divName:(NSString *)divName cidName:(NSString *)cidName;
+- (instancetype)initDevData:(NSDictionary *)data devProtocol:(NSDictionary *)protocol;
+-(void)share:(NSString *)info;
 -(void)fingerprintIdentification:(void(^)(BOOL))block;
 -(void)viewBodyUpdate;
 @end

@@ -45,7 +45,7 @@ typedef UIViewController*(^HekrNativeControllerGenerator)();
 
 -(void) registNativeControll:(HekrNativeControllerGenerator)generator forTemplate:(NSString*) templateName resource:(NSString*) resource;
 
--(void) callwebsocketHandle:(void(^)(id data,BOOL isLoop)) handle;
--(BOOL) getWebsocketSendLoop;
+-(void) callWebSocketErrorHandle:(void(^)(NSDictionary *data)) handle;
+-(void) callWebSocketNetStateHandle:(void(^)(BOOL netState)) handle;
 
 @end
