@@ -47,5 +47,6 @@ typedef UIViewController*(^HekrNativeControllerGenerator)();
 
 -(void) callwebsocketHandle:(void(^)(id data,BOOL isLoop)) handle;
 -(BOOL) getWebsocketSendLoop;
+-(void) callWebSocketErrorHandle:(void(^)(NSDictionary *data)) handle;
 
 @end

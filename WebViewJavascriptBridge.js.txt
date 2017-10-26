@@ -100,8 +100,8 @@ _dispatchMessageFromObjC(messageJSON)
 }
 
 function _initHekrSDK(bridge) {
-function _send(command,devTid,callback){
-bridge.callHandler('send',{'tid':devTid,'command':command},function(ret){
+function _send(command,devTid,callback,raw){
+bridge.callHandler('send',{'tid':devTid,'command':command,'raw':!!raw},function(ret){
 callback(ret.obj,ret.error);
 });
 }
@@ -229,6 +229,16 @@ window.Hekr.netChangeHandel = handle;
 }
 function _defaultNetHandle(){
 }
+function _setLocalControlFlagHandle(handle){
+window.Hekr.localControlFlagHandel = handle;
+}
+function _isLocalControlEnable(callback){
+bridge.callHandler('isLocalControlEnable',{},function(res){
+callback(res.obj,res.error);
+});
+}
+function _defaultLocalControlFlagHandle(){
+}
 var ssLog = console.log;
 function zlog(a,b,c,d,e,f,g,h,i,j,k,l,m,n){
 var arr = [a,b,c,d,e,f,g,h,i,j,k,l,m,n].filter(function(item){return !!item});
@@ -241,6 +251,11 @@ console.error = zlog;
 function _logOff(){
 console.log = ssLog;
 console.error = ssLog;
+}
+function _msgId(callback){
+bridge.callHandler('msgId',{},function(res){
+callback(res.obj);
+});
 }
 window.Hekr = {
 plantform:"iOS",
@@ -273,6 +288,7 @@ playSound:_playSound,
 mscControl:_mscControl,
 share:_share,
 touchIDAuth:_touchIDAuth,
+msgId:_msgId
 }
 bridge.init(function(message, responseCallback) {
 responseCallback({});
@@ -295,6 +311,10 @@ callback && callback({});
 })
 bridge.registerHandler('onNetChange',function(data,callback){
 Hekr.netChangeHandel();
+callback && callback({});
+})
+bridge.registerHandler('onLocalControlFlag',function(data,callback){
+Hekr.localControlFlagHandel(data.obj);
 callback && callback({});
 })
 window.close = function(){Hekr.close(true);}

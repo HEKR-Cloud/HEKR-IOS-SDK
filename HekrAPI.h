@@ -33,17 +33,21 @@ typedef NS_ENUM(NSUInteger, HekrSSOType) {
 @end
 
 @interface Hekr(User)
+-(void) loginWithSetToken:(NSString *)token callbcak:(void(^)(id user,NSError*)) block;
 -(void) login:(NSString*)userName password:(NSString*) password callbcak:(void(^)(id user,NSError*)) block;
 -(void) sso:(NSString*) type controller:(UIViewController*) controlelr ssoType:(HekrSSOType)ssotype callback:(void(^)(id token,id user,NSError*)) block;
+-(void) sso:(NSString*) type controller:(UIViewController*) controlelr ssoType:(HekrSSOType)ssotype anonymous:(BOOL)anonymous callback:(void(^)(id token,id user,NSError*)) block;
 -(void) logout;
 @end
 
 @interface Hekr(Net)
-
 -(void) send:(id) json to:(id) dev callback:(void(^)(id data,NSError*)) block;
+-(void) send:(id) json to:(id) dev withoutComplate:(BOOL)complate callback:(void(^)(id data,NSError*)) block;
 -(void) recv:(id) filter obj:(id) obj callback:(void(^)(id obj,id data,NSError*)) block;
 -(void) sendNet:(id)json to:(id)dev timeout:(NSTimeInterval) timeout callback:(void (^)(id, NSError *))block;
 -(void)removeRecvOfObj:(id)content;
+-(void) setRecvCallBack:(void(^)(id pro)) recvCallBack;
+
 @end
 
 @interface Hekr(Config)
@@ -63,7 +67,11 @@ typedef NS_ENUM(NSUInteger, HekrSSOType) {
 @interface Hekr (DeviceFilter)//由外部传入设备数据，用于局域网使用
 -(void) onInsertDevices:(NSArray *)devices;
 -(void) onInsertDevices:(NSArray *)devices page:(NSInteger )page;
+-(void) onDelDevices:(NSDictionary *)device;
+-(void) callBackLocalDevicesState:(void(^)(NSString *devTid,NSArray *devices)) openState closeState:(void(^)(NSString *devTid)) closeState;
+-(NSArray *) getControlDealDevs;
 @end
 
-
-
+@interface Hekr (SocialManage)
+-(NSDictionary *)getSocialTypes;
+@end
