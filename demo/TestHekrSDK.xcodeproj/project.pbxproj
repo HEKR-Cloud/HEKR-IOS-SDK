@@ -1,0 +1,420 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		031AC254336D645BBA1BFF1D /* Pods_TestHekrSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEC000FE65338C6911AE024 /* Pods_TestHekrSDK.framework */; };
+		931A1BD71F750AD200B90CAA /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = 931A1BD61F750AD200B90CAA /* config.json */; };
+		931B0EC61FA085F1000A5F5C /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 931B0EC51FA085F1000A5F5C /* WebKit.framework */; };
+		93D499AE1F7507C800C59B2E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93D499AD1F7507C800C59B2E /* main.m */; };
+		93D499B11F7507C800C59B2E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93D499B01F7507C800C59B2E /* AppDelegate.m */; };
+		93D499B41F7507C800C59B2E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93D499B31F7507C800C59B2E /* ViewController.m */; };
+		93D499B71F7507C800C59B2E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93D499B51F7507C800C59B2E /* Main.storyboard */; };
+		93D499B91F7507C800C59B2E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93D499B81F7507C800C59B2E /* Assets.xcassets */; };
+		93D499BC1F7507C800C59B2E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93D499BA1F7507C800C59B2E /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		5FEC000FE65338C6911AE024 /* Pods_TestHekrSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestHekrSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5FF6022B3BD636148620AB17 /* Pods-TestHekrSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestHekrSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TestHekrSDK/Pods-TestHekrSDK.debug.xcconfig"; sourceTree = "<group>"; };
+		931A1BD61F750AD200B90CAA /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
+		931B0EC51FA085F1000A5F5C /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		93D499A91F7507C800C59B2E /* TestHekrSDK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestHekrSDK.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		93D499AD1F7507C800C59B2E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		93D499AF1F7507C800C59B2E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		93D499B01F7507C800C59B2E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		93D499B21F7507C800C59B2E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		93D499B31F7507C800C59B2E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		93D499B61F7507C800C59B2E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		93D499B81F7507C800C59B2E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		93D499BB1F7507C800C59B2E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		93D499BD1F7507C800C59B2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DB23BC2E0980B5E3FBEE0D50 /* Pods-TestHekrSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestHekrSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-TestHekrSDK/Pods-TestHekrSDK.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		93D499A61F7507C800C59B2E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				931B0EC61FA085F1000A5F5C /* WebKit.framework in Frameworks */,
+				031AC254336D645BBA1BFF1D /* Pods_TestHekrSDK.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		93D499A01F7507C800C59B2E = {
+			isa = PBXGroup;
+			children = (
+				93D499AB1F7507C800C59B2E /* TestHekrSDK */,
+				93D499AA1F7507C800C59B2E /* Products */,
+				9FB1C07CF3F4A91A33350F9A /* Pods */,
+				B00C5B4E3A64CB88640085D2 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		93D499AA1F7507C800C59B2E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				93D499A91F7507C800C59B2E /* TestHekrSDK.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		93D499AB1F7507C800C59B2E /* TestHekrSDK */ = {
+			isa = PBXGroup;
+			children = (
+				93D499AF1F7507C800C59B2E /* AppDelegate.h */,
+				93D499B01F7507C800C59B2E /* AppDelegate.m */,
+				93D499B21F7507C800C59B2E /* ViewController.h */,
+				93D499B31F7507C800C59B2E /* ViewController.m */,
+				931A1BD61F750AD200B90CAA /* config.json */,
+				93D499B51F7507C800C59B2E /* Main.storyboard */,
+				93D499B81F7507C800C59B2E /* Assets.xcassets */,
+				93D499BA1F7507C800C59B2E /* LaunchScreen.storyboard */,
+				93D499BD1F7507C800C59B2E /* Info.plist */,
+				93D499AC1F7507C800C59B2E /* Supporting Files */,
+			);
+			path = TestHekrSDK;
+			sourceTree = "<group>";
+		};
+		93D499AC1F7507C800C59B2E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				93D499AD1F7507C800C59B2E /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9FB1C07CF3F4A91A33350F9A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5FF6022B3BD636148620AB17 /* Pods-TestHekrSDK.debug.xcconfig */,
+				DB23BC2E0980B5E3FBEE0D50 /* Pods-TestHekrSDK.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		B00C5B4E3A64CB88640085D2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				931B0EC51FA085F1000A5F5C /* WebKit.framework */,
+				5FEC000FE65338C6911AE024 /* Pods_TestHekrSDK.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		93D499A81F7507C800C59B2E /* TestHekrSDK */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 93D499C01F7507C800C59B2E /* Build configuration list for PBXNativeTarget "TestHekrSDK" */;
+			buildPhases = (
+				30D63261656A87D7D08713B2 /* [CP] Check Pods Manifest.lock */,
+				93D499A51F7507C800C59B2E /* Sources */,
+				93D499A61F7507C800C59B2E /* Frameworks */,
+				93D499A71F7507C800C59B2E /* Resources */,
+				9C4C04C72FBC2336A0C285B3 /* [CP] Embed Pods Frameworks */,
+				5A0DD07192E50708F71F9B66 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TestHekrSDK;
+			productName = TestHekrSDK;
+			productReference = 93D499A91F7507C800C59B2E /* TestHekrSDK.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		93D499A11F7507C800C59B2E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = ye_wenbo;
+				TargetAttributes = {
+					93D499A81F7507C800C59B2E = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 6WDB9C7995;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 93D499A41F7507C800C59B2E /* Build configuration list for PBXProject "TestHekrSDK" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 93D499A01F7507C800C59B2E;
+			productRefGroup = 93D499AA1F7507C800C59B2E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				93D499A81F7507C800C59B2E /* TestHekrSDK */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		93D499A71F7507C800C59B2E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				93D499BC1F7507C800C59B2E /* LaunchScreen.storyboard in Resources */,
+				931A1BD71F750AD200B90CAA /* config.json in Resources */,
+				93D499B91F7507C800C59B2E /* Assets.xcassets in Resources */,
+				93D499B71F7507C800C59B2E /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		30D63261656A87D7D08713B2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		5A0DD07192E50708F71F9B66 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TestHekrSDK/Pods-TestHekrSDK-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9C4C04C72FBC2336A0C285B3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TestHekrSDK/Pods-TestHekrSDK-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		93D499A51F7507C800C59B2E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				93D499B41F7507C800C59B2E /* ViewController.m in Sources */,
+				93D499B11F7507C800C59B2E /* AppDelegate.m in Sources */,
+				93D499AE1F7507C800C59B2E /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		93D499B51F7507C800C59B2E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				93D499B61F7507C800C59B2E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		93D499BA1F7507C800C59B2E /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				93D499BB1F7507C800C59B2E /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		93D499BE1F7507C800C59B2E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		93D499BF1F7507C800C59B2E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		93D499C11F7507C800C59B2E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5FF6022B3BD636148620AB17 /* Pods-TestHekrSDK.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 6WDB9C7995;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TestHekrSDK",
+				);
+				INFOPLIST_FILE = TestHekrSDK/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hekr.siter1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		93D499C21F7507C800C59B2E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DB23BC2E0980B5E3FBEE0D50 /* Pods-TestHekrSDK.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 6WDB9C7995;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TestHekrSDK",
+				);
+				INFOPLIST_FILE = TestHekrSDK/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hekr.siter1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		93D499A41F7507C800C59B2E /* Build configuration list for PBXProject "TestHekrSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				93D499BE1F7507C800C59B2E /* Debug */,
+				93D499BF1F7507C800C59B2E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		93D499C01F7507C800C59B2E /* Build configuration list for PBXNativeTarget "TestHekrSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				93D499C11F7507C800C59B2E /* Debug */,
+				93D499C21F7507C800C59B2E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 93D499A11F7507C800C59B2E /* Project object */;
+}

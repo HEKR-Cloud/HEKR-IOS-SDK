@@ -1,0 +1,6 @@
+framework module HekrApiSDK {
+  umbrella header "HekrApiSDK.h"
+
+  export *
+  module * { export * }
+}
