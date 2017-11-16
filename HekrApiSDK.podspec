@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "HekrApiSDK"
-  s.version      = "0.0.1"
+  s.version      = "1.0"
   s.summary      = "SDK for HEKR"
 
   s.description  = <<-DESC
@@ -79,7 +79,7 @@ Pod::Spec.new do |s|
     #  Supports git, hg, bzr, svn and HTTP.
     #
 
-    s.source       = { :git => "https://github.com/HEKR-Cloud/HEKR-IOS-SDK.git", :branch => "framework3.0" }
+    s.source       = { :git => "https://github.com/HEKR-Cloud/HEKR-IOS-SDK.git", :tag => "1.0" }
 
     s.vendored_frameworks = 'HekrApiSDK.framework'
 
