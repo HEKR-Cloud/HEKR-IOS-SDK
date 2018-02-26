@@ -16,6 +16,7 @@
 @property (nonatomic,readonly) NSDictionary * param;
 @property (nonatomic,readonly) NSURL * templateURL;
 -(void) jumpTo:(NSURL*) url currentController:(UIViewController *)controller devData:(NSDictionary *)data devProtocol:(NSDictionary *)protocol;
+-(void) jumpTo:(NSURL*) url currentController:(UIViewController *)controller devData:(NSDictionary *)data devProtocol:(NSDictionary *)protocol domain:(NSString *)domain;
 -(void) backTo:(NSString*) path animation:(BOOL) animation;
 @end
 
