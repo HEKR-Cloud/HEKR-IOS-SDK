@@ -46,18 +46,21 @@ typedef NS_ENUM(NSUInteger, ConfigDeviceType) {
 
 @interface Hekr(User)
 -(void) login:(NSString*)userName password:(NSString*) password callbcak:(void(^)(id user,NSError*)) block;
+-(void) sso:(NSString*) type controller:(UIViewController*) controlelr ssoType:(HekrSSOType)ssotype callback:(void(^)(id token,id user,NSError*)) block;
 -(void) sso:(NSString*) type controller:(UIViewController*) controlelr ssoType:(HekrSSOType)ssotype anonymous:(BOOL)anonymous callback:(void(^)(id token,id user,NSError*)) block;
 -(void) logout;
 @end
 
 @interface Hekr(Net)
-
--(void) send:(id) json to:(id) dev withoutComplate:(BOOL)complate callback:(void(^)(id data,NSError*)) block;
+-(void) send:(id) json to:(id) dev callback:(void(^)(id data,NSError*)) block;
+-(void) send:(id)json to:(NSString *)to withoutComplate:(BOOL)complate callback:(void (^)(id, NSError *))block;
 -(void) recv:(id) filter obj:(id) obj callback:(void(^)(id obj,id data,NSError*)) block;
 -(void) sendNet:(id)json to:(id)dev timeout:(NSTimeInterval) timeout callback:(void (^)(id, NSError *))block;
+-(void) sendNet:(id)json toHost:(NSString *)host timeout:(NSTimeInterval) timeout callback:(void (^)(id, NSError *))block;
 -(void)removeRecvOfObj:(id)content;
 -(void) setRecvCallBack:(void(^)(id pro)) recvCallBack;
 -(void) sendLan:(id)json to:(id)dev timeout:(NSTimeInterval) timeout callback:(void (^)(id, NSError *))block;
+-(void) sendLan:(id)json address:(id)address timeout:(NSTimeInterval) timeout callback:(void (^)(id, NSError *))block;
 
 @end
 
@@ -103,6 +106,8 @@ typedef NS_ENUM(NSUInteger, ConfigDeviceType) {
 
 -(void) callwebsocketHandle:(void(^)(id data,BOOL isLoop)) handle;
 -(BOOL) getWebsocketSendLoop;
+-(void) setCloudControlWithGlobals:(NSArray *)globals;
+
 @end
 
 @interface Hekr (DeviceFilter)//由外部传入设备数据，用于局域网使用

@@ -60,6 +60,9 @@
                     },
             open:function(schameurl){
                         return noReturnFunc('open',{'url':schameurl});
-                    }
+                    },
+            getDomain:function(){
+                        return syncFunc('getDomain');
+                  }
             };
 })()
