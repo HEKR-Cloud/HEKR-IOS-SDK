@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "HekrSDK"
-  s.version      = "3.4.1-beta"
+  s.version      = "3.4.2-only-config"
   s.summary      = "SDK for HEKR"
 
   s.description  = <<-DESC
@@ -79,58 +79,16 @@ Pod::Spec.new do |s|
     #  Supports git, hg, bzr, svn and HTTP.
     #
 
-    s.source       = { :git => "https://github.com/HEKR-Cloud/HEKR-IOS-SDK.git", :branch => "global" }
+    s.source       = { :git => "https://github.com/HEKR-Cloud/HEKR-IOS-SDK.git", :branch => "only_config" }
 
     s.subspec 'Core' do |sp|
       sp.source_files  = "*.{h}"
       sp.public_header_files = "*.{h}"
       sp.vendored_libraries = 'libHekrSDKCore.a'
-      sp.frameworks = ['WebKit']
-      sp.resource_bundles = {
-        'JSSDK' => ['new.js','old.js']
-      }
       sp.requires_arc = true
 
-      sp.dependency "CocoaAsyncSocket", "~> 7.4"
-      sp.dependency "SocketRocket", "~> 0.4"
-      sp.dependency "AFNetworking", "~> 3.0"
-      sp.dependency "ZipArchive", "~> 1.4"
-      sp.dependency "GTSDK", "~> 1.6"
-      sp.dependency "CocoaLumberjack", "~> 2.3.0"
-      sp.dependency 'Masonry', '~> 1.0.1'
-      sp.dependency 'SHAlertViewBlocks', '~> 1.2.1'
-
-    end
-
-    s.subspec 'socialWeibo' do |sp|
-      sp.source_files  = "Social/SocialWeibo.m","Social/socialImp.h"
-      sp.dependency "WeiboSDK", "~> 3.1.3"
-    end
-
-    s.subspec 'socialQQ' do |sp|
-      sp.source_files  = "Social/SocialQQ.m","Social/socialImp.h"
-      sp.dependency "TencentOpenApiSDK","~> 2.9"
-    end
-
-    s.subspec 'socialWeixin' do |sp|
-      sp.source_files  = "Social/SocialWeixin.m","Social/socialImp.h"
-      sp.dependency "WeixinSDK","~> 1.4"
-    end
-
-    s.subspec 'socialFacebook' do |sp|
-      sp.source_files  = "Social/SocialFacebook.m","Social/socialImp.h"
-      sp.dependency "FBSDKLoginKit", "~> 4.11"
-    end
-
-    s.subspec 'socialTwitter' do |sp|
-      sp.source_files  = "Social/SocialTwitter.m","Social/socialImp.h"
-      sp.dependency "TwitterCore", "~> 1.10.0"
-      sp.dependency "TwitterKit", "~> 1.10.0"
-    end
-
-    s.subspec 'socialGoogle' do |sp|
-      sp.source_files  = "Social/SocialGoogle.m","Social/socialImp.h"
-      sp.dependency "Google/SignIn", "~> 2.0"
+      sp.dependency "CocoaAsyncSocket", "~> 7.6.3"
+      sp.dependency "CocoaLumberjack", "~> 3.4.2"
     end
     s.default_subspec = 'Core'
 
