@@ -79,7 +79,7 @@ Pod::Spec.new do |s|
     #  Supports git, hg, bzr, svn and HTTP.
     #
 
-    s.source       = { :git => "https://github.com/HEKR-Cloud/HEKR-IOS-SDK.git", :branch => "only_config" }
+    s.source       = { :git => "https://github.com/HEKR-Cloud/HEKR-IOS-SDK.git", :branch => "only-config" }
 
     s.subspec 'Core' do |sp|
       sp.source_files  = "*.{h}"
