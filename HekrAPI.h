@@ -16,9 +16,6 @@ typedef NS_ENUM(NSUInteger, ConfigDeviceType) {
 
 @interface Hekr ()
 
-@end
-
-@interface Hekr(Config)
 /**
  传入SSID和password进行配网
  
@@ -28,8 +25,16 @@ typedef NS_ENUM(NSUInteger, ConfigDeviceType) {
  @param configType 配网的类型 ConfigDeviceTypeNormal：正常配网 ；ConfigDeviceTypeSoftAP：软AP
  @param stepCallBack 配设备时的步骤：STEP：1 获取PinCode成功；STEP：2 设备连接路由器成功；STEP：3 云端验证设备信息成功；STEP：4 设备登陆云端成功；STEP：5 绑定设备成功
  */
--(void) configSearch:(NSString *)ssid pwd:(NSString *)pwd pinCode:(NSString *)pinCode configType:(ConfigDeviceType )configType stepCallBack:(void (^)(NSDictionary *dict, NSString *address))stepCallBack;
+-(void) configSearch:(NSString *)ssid pwd:(NSString *)pwd pinCode:(NSString *)pinCode configType:(ConfigDeviceType )configType stepCallBack:(void (^)(id msg, NSString *address))stepCallBack;
 
 -(void) stopConfig;
+
+/**
+ udp发送配网过程中发送到设备的指令
+
+ @param msg 指令
+ @param address 地址
+ */
+-(void) send:(id)msg address:(NSString *)address contentCallBack:(void (^)(id msg, NSString *address))contentCallBack;
 
 @end
