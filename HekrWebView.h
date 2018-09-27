@@ -1,32 +1,33 @@
 //
 //  HekrWebView.h
-//  HekrSDK
+//  CocoaAsyncSocket
 //
-//  Created by WangMike on 15/8/4.
-//  Copyright (c) 2015年 Hekr. All rights reserved.
+//  Created by 叶文博 on 2018/9/26.
 //
 
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
 
-@interface HekrWebView : WKWebView
-@end
+@protocol HekrWebViewDelegate <NSObject>
 
-@protocol HekrViewController <NSObject>
-@property (nonatomic,readonly) NSDictionary * param;
-@property (nonatomic,readonly) NSURL * templateURL;
--(void) jumpTo:(NSURL*) url currentController:(UIViewController *)controller devData:(NSDictionary *)data devProtocol:(NSDictionary *)protocol;
--(void) backTo:(NSString*) path animation:(BOOL) animation;
-@end
-
-@interface UIViewController (Hekr)<HekrViewController>
-
-@end
-
-@interface HekrWebViewController : UIViewController
-@property (nonatomic,weak,readonly) HekrWebView * webView;
-- (instancetype)initDevData:(NSDictionary *)data devProtocol:(NSDictionary *)protocol;
--(void)share:(NSString *)info;
--(void)fingerprintIdentification:(void(^)(BOOL))block;
 -(void)viewBodyUpdate;
+-(void)setStateBarColor:(UIColor *)color;
+-(void)screenShot:(id)body;
+-(void)hekrWebViewDidFail;
+-(void)hekrWebViewDidFinish;
+-(void)callFunc:(NSString *)callFunc body:(id)body;
+
+@end
+
+@interface HekrWebView : UIView
+
+@property (nonatomic,weak,readonly) WKWebView * webView;
+
++ (HekrWebView *)viewWithDevice:(NSDictionary *)device language:(NSString *)language protocol:(NSDictionary *)protocol controller:(id<HekrWebViewDelegate>)controller;
+
++ (HekrWebView *)viewWithGroup:(NSDictionary *)group language:(NSString *)language protocol:(NSDictionary *)protocol controller:(id<HekrWebViewDelegate>)controller;
+
+-(void)startLoad;
+-(void)reload;
+
 @end

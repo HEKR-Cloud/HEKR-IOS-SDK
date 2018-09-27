@@ -8,9 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "HekrUserToken.h"
-#import "HekrWebView.h"
-
-extern NSString * const HekrSDKUserChangeNotification;
+#import "HekrAPI.h"
 
 extern NSString * const KeyOfHekr;//@"Hekr"
 extern NSString * const KeyOfPush;//@"push"
@@ -25,27 +23,12 @@ extern NSString * const KeyOfSocialFacebook;//@"Facebook"
 extern NSString * const KeyOfSocialGoogle;//@"Google"
 extern NSString * const KeyOfSocialTwitter;//@"Twitter"
 
-typedef UIViewController*(^HekrNativeControllerGenerator)();
-
 @interface Hekr : NSObject
-@property (nonatomic,strong,readonly) NSString * pid;
+
 @property (nonatomic,strong,readonly) HekrUserToken * user;
+@property (nonatomic,copy) NSDictionary * localData;//局域网成功连上的设备数据key:设备的ctrlKey value：IP
+@property (nonatomic,assign,readonly) HekrLocalControl localControlState;
 
 +(instancetype) sharedInstance;
--(void) config:(NSDictionary*) config startPage:(NSString*) url launchOptions:(NSDictionary*) launchOptions;
--(void) didReceiveRemoteNotification:(NSDictionary*) userInfo;
--(BOOL) openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
-
--(HekrWebViewController*) webViewFor:(NSString*) url;
--(UIViewController*) firstPage;
-
--(void) didRegisterUserNotificationSettings:(UIUserNotificationSettings*) settings;
--(void) registNotificationsWithDeviceToken:(NSData*) data;
--(void) setNotificationHandle:(void(^)(id note,BOOL isUserSelected)) handle;
-
--(void) registNativeControll:(HekrNativeControllerGenerator)generator forTemplate:(NSString*) templateName resource:(NSString*) resource;
-
--(void) callWebSocketErrorHandle:(void(^)(NSDictionary *data)) handle;
--(void) callWebSocketNetStateHandle:(void(^)(BOOL netState)) handle;
 
 @end
