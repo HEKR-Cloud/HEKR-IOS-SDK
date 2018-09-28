@@ -17,11 +17,6 @@ typedef NS_ENUM(NSUInteger, HekrLocalControl) {
     HekrLocalControlOn,
 };
 
-typedef NS_ENUM(NSUInteger, HekrSSOType) {
-    HekrSSOLogin,
-    HekrSSOBind,
-};
-
 @interface HekrAPI : NSObject
 
 +(void) startWithConfig:(NSDictionary*) config;
@@ -32,7 +27,25 @@ typedef NS_ENUM(NSUInteger, HekrSSOType) {
 
 +(void) logout;
 
-+(void) sso:(NSString *)type controller:(UIViewController *)controlelr ssoType:(HekrSSOType)ssoType success:(void (^)(id))success fail:(void (^)(id))fail;
+
+/**
+ 获取第三方返回的数据
+ 
+ @param type 第三方类型
+ @param controlelr 当前vc界面
+ @param block 回调
+ */
++(void) oauth:(NSString *)type controller:(UIViewController *)controlelr  callback:(void(^)(NSDictionary * tokens,NSError*)) block;
+
+/**
+ 获取第三方需要在AppDelegate application:openURL:sourceApplication:annotation传递数据
+
+ @param url url
+ @param sourceApplication s
+ @param annotation a
+ @return YES/NO
+ */
++(BOOL) openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
 
 /**
  传入SSID和password进行配网
@@ -66,7 +79,10 @@ typedef NS_ENUM(NSUInteger, HekrSSOType) {
 
 +(void) sendNet:(id)json toHost:(NSString *)host timeout:(NSTimeInterval) timeout callback:(void (^)(id, NSError *))block;
 
-+(void) sendLAN:(id)json toAddr:(id)address timeout:(NSTimeInterval) timeout callback:(void (^)(id, NSError *))block;
++(void) sendLAN:(id)json toAddr:(NSString *)address timeout:(NSTimeInterval) timeout callback:(void (^)(id, NSError *))block;
+
++(void) sendLAN:(id)json toAddr:(NSString *)address port:(NSString *)port timeout:(NSTimeInterval) timeout callback:(void (^)(id, NSError *))block;
+
 
 /**
  用来监听websocket或局域网返回的数据
