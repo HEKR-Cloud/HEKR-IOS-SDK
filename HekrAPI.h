@@ -123,4 +123,7 @@ typedef NS_ENUM(NSUInteger, HekrLocalControl) {
  */
 +(void) onLanCallBack:(void (^)(NSArray *deviceList))callback;
 
++(void) setConnectHosts:(NSArray *)connectHosts;
+
+
 @end

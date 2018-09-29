@@ -23,6 +23,13 @@ extern NSString * const KeyOfSocialFacebook;//@"Facebook"
 extern NSString * const KeyOfSocialGoogle;//@"Google"
 extern NSString * const KeyOfSocialTwitter;//@"Twitter"
 
+extern NSDictionary *ApiMap;
+extern NSString * SocketMap;
+extern NSString * SocketDefault;
+extern NSString * APPDomain;
+extern NSString * APPLanguage;
+extern BOOL TestSite;
+
 @interface Hekr : NSObject
 
 @property (nonatomic,strong,readonly) HekrUserToken * user;
