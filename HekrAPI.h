@@ -12,11 +12,6 @@ typedef NS_ENUM(NSUInteger, ConfigDeviceType) {
     ConfigDeviceTypeSoftAP,
 };
 
-typedef NS_ENUM(NSUInteger, HekrLocalControl) {
-    HekrLocalControlOff,
-    HekrLocalControlOn,
-};
-
 @interface HekrAPI : NSObject
 
 +(void) startWithConfig:(NSDictionary*) config;

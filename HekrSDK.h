@@ -34,7 +34,6 @@ extern BOOL TestSite;
 
 @property (nonatomic,strong,readonly) HekrUserToken * user;
 @property (nonatomic,copy) NSDictionary * localData;//局域网成功连上的设备数据key:设备的ctrlKey value：IP
-@property (nonatomic,assign,readonly) HekrLocalControl localControlState;
 @property (nonatomic,assign,readonly,getter=isEnableLAN) BOOL enableLAN;
 
 +(instancetype) sharedInstance;

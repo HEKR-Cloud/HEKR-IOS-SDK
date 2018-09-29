@@ -11,10 +11,14 @@
 @protocol HekrWebViewDelegate <NSObject>
 
 -(void)viewBodyUpdate;
--(void)setStateBarColor:(UIColor *)color;
--(void)screenShot:(id)body;
 -(void)hekrWebViewDidFail;
 -(void)hekrWebViewDidFinish;
+/**
+ 需要vc自己处理的事件
+
+ @param callFunc [setStateBarColor,screenShot,close]
+ @param body body
+ */
 -(void)callFunc:(NSString *)callFunc body:(id)body;
 
 @end
@@ -29,5 +33,6 @@
 
 -(void)startLoad;
 -(void)reload;
+-(void)destory;
 
 @end
