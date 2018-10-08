@@ -86,6 +86,9 @@
                   reloadGroup: function () {
                   return noReturnFunc('reloadGroup');
                   },
+                  openURL: function (url) {
+                  return noReturnFunc('open', { 'url': url });
+                  },
                   };
                   })()
 ;(function () {
