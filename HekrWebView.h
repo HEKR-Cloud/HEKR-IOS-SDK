@@ -35,4 +35,7 @@
 -(void)reload;
 -(void)destory;
 
+- (void) addCustomJavaScript:(NSString *)js;
+-(void) evaluateJavaScript:(NSString *)event data:(NSDictionary *)data;
+
 @end
