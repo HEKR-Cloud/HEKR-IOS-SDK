@@ -10,6 +10,7 @@
 @interface HekrWebViewController : UIViewController
 
 + (HekrWebViewController *)vcWithData:(NSDictionary *)data language:(NSString *)language protocol:(NSDictionary *)protocol isGroup:(BOOL)isGroup;
++ (HekrWebViewController *)vcWithDevice:(NSDictionary *)device language:(NSString *)language protocol:(NSDictionary *)protocol group:(NSDictionary *)group;
 
 -(void)reload;
 
