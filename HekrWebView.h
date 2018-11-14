@@ -31,6 +31,9 @@
 
 + (HekrWebView *)viewWithGroup:(NSDictionary *)group language:(NSString *)language protocol:(NSDictionary *)protocol controller:(id<HekrWebViewDelegate>)controller;
 
++ (HekrWebView *)viewWithDevice:(NSDictionary *)device group:(NSDictionary *)group language:(NSString *)language protocol:(NSDictionary *)protocol controller:(id<HekrWebViewDelegate>)controller;
+
+
 -(void)startLoad;
 -(void)reload;
 -(void)destory;
