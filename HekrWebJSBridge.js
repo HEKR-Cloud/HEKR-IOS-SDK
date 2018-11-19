@@ -77,8 +77,7 @@
                   return syncFunc('getDomain');
                   },
                   openPage: function (action, device) {
-                  var dict = { action: action, device: device };
-                  return noReturnFunc('openPage', dict);
+                  return noReturnFunc('openPage', { action: action, device: device });
                   },
                   screenShot: function () {
                   return noReturnFunc('screenShot');
@@ -88,6 +87,9 @@
                   },
                   openURL: function (url) {
                   return noReturnFunc('open', { 'url': url });
+                  },
+                  scanQRCode:function(key){
+                  return noReturnFunc('scanQRCode',key);
                   },
                   };
                   })()

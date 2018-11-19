@@ -14,14 +14,24 @@
 -(void)hekrWebViewDidFail;
 -(void)hekrWebViewDidFinish;
 
-@required
 /**
  需要vc自己处理的事件
-
- @param funcName [setStateBarColor(对于web没有把状态栏也覆盖的控制界面，需要自己维护状态栏的背景颜色),screenShot(截屏),close(pop返回上个界面)]
+ 
+ @param funcName setStateBarColor(对于web没有把状态栏也覆盖的控制界面，需要自己维护状态栏的背景颜色),
+                 screenShot(截屏),
+                 scanQRCode(扫码，SDK不提供扫码界面，所以需要外部自己创建vc来处理),
+                 openPage(根据body打开b外部vc对应界面),
+                 reloadGroup(刷新群控的事件),
  @param body body
  */
--(void)callFunc:(NSString *)funcName body:(id)body;
+-(void)onFunc:(NSString *)funcName body:(id)body;
+
+@required
+
+/**
+  界面需要关闭，vc返回上个界面
+ */
+-(void)onClose;
 
 @end
 
