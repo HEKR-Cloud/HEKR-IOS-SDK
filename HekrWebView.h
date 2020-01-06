@@ -17,6 +17,9 @@
 @property (nonatomic,readonly) NSURL * templateURL;
 -(void) jumpTo:(NSURL*) url currentController:(UIViewController *)controller devData:(NSDictionary *)data devProtocol:(NSDictionary *)protocol;
 -(void) jumpTo:(NSURL*) url currentController:(UIViewController *)controller devData:(NSDictionary *)data devProtocol:(NSDictionary *)protocol domain:(NSString *)domain;
+
+-(void) groupJumpTo:(NSURL*) url currentController:(UIViewController *)controller devData:(NSDictionary *)data devProtocol:(NSDictionary *)protocol domain:(NSString *)domain deviceList:(NSArray *)deviceList;
+
 -(void) backTo:(NSString*) path animation:(BOOL) animation;
 @end
 
@@ -30,4 +33,6 @@
 -(void)share:(NSString *)info;
 -(void)fingerprintIdentification:(void(^)(BOOL))block;
 -(void)viewBodyUpdate;
+-(void)resetDevice:(NSDictionary *)device;
+
 @end

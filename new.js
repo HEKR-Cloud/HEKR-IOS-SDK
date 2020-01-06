@@ -14,7 +14,7 @@
             takePhoto:function(data){
                         return noReturnFunc('takePhoto', data);
                     },
-            close:function(){   
+            close:function(){
                         return noReturnFunc('close', {'animation':true});
                     },
             user:function(){
@@ -63,6 +63,13 @@
                     },
             getDomain:function(){
                         return syncFunc('getDomain');
-                  }
+                    },
+            openPage:function(action ,device){
+                        var dict = {action:action,device:device};
+                        return noReturnFunc('openPage',dict);
+                    },
+            screenShot:function(){
+                        return noReturnFunc('screenShot');
+                    }
             };
 })()
