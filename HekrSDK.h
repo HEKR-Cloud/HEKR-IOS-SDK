@@ -44,6 +44,8 @@ typedef UIViewController*(^HekrNativeControllerGenerator)();
 -(void) setNotificationHandle:(void(^)(id note,BOOL isUserSelected)) handle;
 
 -(void) registNativeControll:(HekrNativeControllerGenerator)generator forTemplate:(NSString*) templateName resource:(NSString*) resource;
+-(void) registJSFuncName:(NSString*) name imp:(void(^)(HekrWebViewController*web,id data)) imp;
+
 
 -(void) callWebSocketErrorHandle:(void(^)(NSDictionary *data)) handle;
 -(void) callWebSocketNetStateHandle:(void(^)(BOOL netState)) handle;
