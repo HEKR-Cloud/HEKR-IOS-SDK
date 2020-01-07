@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "HekrSDK"
-  s.version      = "3.4.2-beta"
+  s.version      = "3.4.1-beta"
   s.summary      = "SDK for HEKR"
 
   s.description  = <<-DESC
