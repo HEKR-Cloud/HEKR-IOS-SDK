@@ -95,7 +95,7 @@ Pod::Spec.new do |s|
       sp.dependency "SocketRocket", "~> 0.4"
       sp.dependency "AFNetworking", "~> 3.0"
       sp.dependency "ZipArchive", "~> 1.4"
-      sp.dependency "GTSDK", "~> 1.6"
+      sp.dependency "GTSDK", "~> 2.3"
       sp.dependency "CocoaLumberjack", "~> 2.3.0"
       sp.dependency 'Masonry', '~> 1.0.1'
       sp.dependency 'SHAlertViewBlocks', '~> 1.2.1'
