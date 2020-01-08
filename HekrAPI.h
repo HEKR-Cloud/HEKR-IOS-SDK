@@ -45,9 +45,11 @@ typedef NS_ENUM(NSUInteger, ConfigDeviceType) {
 @end
 
 @interface Hekr(User)
--(void) login:(NSString*)userName password:(NSString*) password domain:(NSString*) dom callbcak:(void(^)(id user,NSError*)) block;
--(void) sso:(NSString*) type controller:(UIViewController*) controlelr domain:(NSString*) dom ssoType:(HekrSSOType)ssotype callback:(void(^)(id token,id user,NSError*)) block;
--(void) sso:(NSString*) type controller:(UIViewController*) controlelr domain:(NSString*) dom ssoType:(HekrSSOType)ssotype anonymous:(BOOL)anonymous callback:(void(^)(id token,id user,NSError*)) block;
+-(void) setOnlineSite:(NSString* )dom;
+-(void) login:(NSString*)userName password:(NSString*) password callbcak:(void(^)(id user,NSError*)) block;
+-(void) refreshToken:(void (^)(id, NSError *))block;
+-(void) sso:(NSString*) type controller:(UIViewController*) controlelr ssoType:(HekrSSOType)ssotype callback:(void(^)(id token,id user,NSError*)) block;
+-(void) sso:(NSString*) type controller:(UIViewController*) controlelr ssoType:(HekrSSOType)ssotype anonymous:(BOOL)anonymous callback:(void(^)(id token,id user,NSError*)) block;
 -(void) logout;
 @end
 
